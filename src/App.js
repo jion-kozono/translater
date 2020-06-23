@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
 import Header from './components/Header/Header'
-import EnglishPostForm from './components/Form/EnglishPostForm';
-import EnglishPosts from './components/EnglishPosts/EnglishPosts';
+import PostForm from './components/PostForm/PostForm';
+import Posts from './components/Posts/Posts';
+import PostShow from './components/PostShow/PostShow';
+import TranslationPosts from './components/TranslationPosts/TranslationPosts';
+// import { FormControl, TextField, Button } from '@material-ui/core'
 
 class App extends Component {
   render() {
     return (
       <>
         <Header />
-        {/* <EnglishPostForm /> */}
-        <EnglishPosts />
+        {/* <PostForm /> */}
+        {/* <Posts /> */}
+        <PostShow />
+        <TranslationPosts />
       </>
     );
   }

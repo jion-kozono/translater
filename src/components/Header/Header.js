@@ -7,7 +7,7 @@ export class Header extends Component {
             <>
                 <AppBar position="static" color="default">
                     <Toolbar>
-                        <Typography variant="title" color="inherit">
+                        <Typography color="inherit">
                             Translater
                         </Typography>
                     </Toolbar>

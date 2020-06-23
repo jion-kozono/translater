@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { FormControl, TextField, Button } from '@material-ui/core'
 
-export default class EnglishPostForm extends Component {
+export default class PostForm extends Component {
     render() {
         return (
             <>
