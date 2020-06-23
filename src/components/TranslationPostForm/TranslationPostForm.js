@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import { FormControl, TextField, Button } from '@material-ui/core'
 
-export default class PostForm extends Component {
+
+export default class TranslationPostForm extends Component {
     render() {
         return (
-            <>
+            <div>
                 <div>{this.props.title}</div>
-                    <FormControl>
+                <FormControl>
                     <TextField
                         variant="outlined"
-                        placeholder="英文投稿フォーム　MultiLine with rows: 4 and rowsMax: 6"
+                        placeholder="和訳投稿フォーム　MultiLine with rows: 4 and rowsMax: 6"
                         multiline
                         rows={4}
                         rowsMax={6}
@@ -24,8 +25,8 @@ export default class PostForm extends Component {
                     <Button variant="contained" color="primary">
                         Post
                     </Button>
-                    </FormControl>
-            </>
+                </FormControl>
+            </div>
         )
     }
 }

@@ -10,7 +10,7 @@ class TranslationPosts extends Component {
     render() {
         return (
             <>
-                <div>和訳一覧</div>
+                <div>{this.props.title}</div>
                 {index.map((i, index) => {
                 return (
                     <Card key={index} variant="outlined">

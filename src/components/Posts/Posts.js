@@ -9,7 +9,7 @@ export default class Posts extends Component {
     render() {
         return (
             <>
-                <div>英文一覧</div>
+                <div>{this.props.title}</div>
                 <TextField
                 variant="outlined"
                 placeholder="word検索">
