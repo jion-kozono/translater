@@ -15,12 +15,10 @@ class App extends Component {
         {/* <PostForm title="英文投稿画面"/> */}
         {/* <Posts title="英文一覧"/> */}
 
-
         {/* <PostShow title="英文詳細画面"/>
         <TranslationPostForm title="和訳を投稿する"/>
         <TranslationPosts title="和訳一覧"/> */}
-
-        <TranslationPostShow />
+        {/* <TranslationPostShow /> */}
       </>
     );
   }
