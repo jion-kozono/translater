@@ -1,5 +1,8 @@
 import React from 'react'
 import { FormControl, TextField, Button } from '@material-ui/core'
+import MyTranslationPosts from './MyTranslationPosts/MyTranslationPosts'
+import MyLikedPosts from './MyLikedPosts/MyLikedPosts'
+import MyPosts from './MyPosts/MyPosts'
 
 const UserShow = (props) => {
 
@@ -26,7 +29,10 @@ const UserShow = (props) => {
             </FormControl><hr/>
             <Button variant="contained" color="secondary">
                 アカウントを削除する
-            </Button>
+            </Button><hr />
+            <MyPosts /><hr/>
+            <MyTranslationPosts /><hr/>
+            <MyLikedPosts />
         </>
     )
 }
