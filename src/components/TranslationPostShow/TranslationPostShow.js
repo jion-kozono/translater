@@ -4,7 +4,6 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import IconButton from "@material-ui/core/IconButton";
 import PostShow from '../PostShow/PostShow';
 
-
 export default class TranslationPostShow extends Component {
     render() {
         return (

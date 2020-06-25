@@ -1,19 +1,27 @@
 import React, { Component } from 'react'
-import { AppBar, Toolbar, Typography } from '@material-ui/core'
-import SignUp from '../../SignUp/SignUp'
-import LogIn from '../../LogIn/LogIn'
+import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, Button } from '@material-ui/core'
 
+const LinkStyle = {
+    textDecoration: "none",
+    color: "#0000ff"
+}
 export class Header extends Component {
     render() {
         return (
             <>
                 <AppBar position="static" color="default">
                     <Toolbar>
-                        <Typography color="inherit">
-                            Translater
-                        </Typography>
-                        <SignUp />
-                        <LogIn />
+                        <h2>Translater</h2>
+                        <Button variant="contained" color="default">
+                            <Link to="/signUp" style={LinkStyle}>SignUp</Link>
+                        </Button>
+                        <Button variant="contained" color="default">
+                            <Link to="/logIn" style={LinkStyle}>LogIn</Link>
+                        </Button>
+                        <Button variant="contained" color="default">
+                            <Link to="/" style={LinkStyle}>LogOut</Link>
+                        </Button>
                     </Toolbar>
                 </AppBar>
             </>

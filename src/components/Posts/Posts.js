@@ -12,7 +12,7 @@ export default class Posts extends Component {
                 <div>{this.props.title}</div>
                 <TextField
                 variant="outlined"
-                placeholder="word検索">
+                label="word検索" >
                 </TextField>
                 {index.map((i, index) => {
                 return (

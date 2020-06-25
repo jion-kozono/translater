@@ -1,47 +1,37 @@
-import React, { useState } from 'react'
-import { FormControl, TextField, Button, Dialog, DialogContent, DialogTitle, DialogContentText, DialogActions } from '@material-ui/core'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { FormControl, TextField, Button } from '@material-ui/core'
 
 const LogIn = () => {
-    const [open, setOpen] = useState(false);
-
-    const handleClickLogInOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false)
-
+    const LinkStyle = {
+        textDecoration: "none",
+        color: "#fff"
+    }
     return (
         <>
-        <button type="button" onClick={handleClickLogInOpen}>
-            LogIn
-        </button>
-        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">LogIn</DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    アカウント未保持の場合、新規登録してください。
-                </DialogContentText>
-                <FormControl>
-                    <TextField
-                        variant="outlined"
-                        placeholder="nameフィールド"
-                    />
-                    <TextField
-                        variant="outlined"
-                        placeholder="emailフィールド"
-                    />
-                    <TextField
-                        variant="outlined"
-                        placeholder="passwordフィールド"
-                    />
-                </FormControl>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose} variant="contained" color="primary">
+            <div>
+                アカウント未保持の場合、新規登録してください。
+            </div>
+            <FormControl>
+                <TextField
+                    variant="outlined"
+                    label="nameフィールド"
+                />
+                <TextField
+                    variant="outlined"
+                    label="emailフィールド"
+                />
+                <TextField
+                    variant="outlined"
+                    label="passwordフィールド"
+                />
+                <Button variant="contained" color="primary">
                     ログイン
                 </Button>
-                <Button onClick={handleClose} variant="contained" color="primary">
-                    新規登録画面へ
+                <Button variant="contained" color="primary">
+                    <Link to="/signUp" style={LinkStyle}>新規登録画面へ</Link>
                 </Button>
-            </DialogActions>
-        </Dialog>
+            </FormControl>
         </>
     )
 }
