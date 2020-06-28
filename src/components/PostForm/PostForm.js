@@ -29,13 +29,10 @@ const PostForm = () => {
         });
         return () => subscription.unsubscribe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [posts, formState])
+    }, [posts])
 
     function setInput(key, value) {
-        setFormState({
-            ...formState,
-            [key]: value
-        })
+        setFormState({ ...formState, [key]: value })
     }
 
     async function fetchPosts() {
@@ -52,9 +49,7 @@ const PostForm = () => {
             if (!formState.content || !formState.description) return
             const post = { ...formState }
             setPosts([...posts, post])
-            // console.log({ posts });
-            setFormState(initialState)
-            console.log({formState})
+            setFormState(initialState);
             await API.graphql(graphqlOperation(createPost, {input: post}))
         } catch (err) {
             console.log('error creating post:', err)
@@ -70,6 +65,7 @@ const PostForm = () => {
                     multiline
                     rows={4}
                     rowsMax={6}
+                    value={formState.content}
                 />
                 <TextField
                     onChange={event => setInput('description', event.target.value)}
@@ -78,11 +74,12 @@ const PostForm = () => {
                     multiline
                     rows={2}
                     rowsMax={4}
+                    value={formState.description}
                 />
                 <Button onClick={addPost} variant="contained" color="primary">
                     Post
                 </Button>
-            </FormControl><hr/>
+            </FormControl>
             {
             posts.map((post, index) => (
                 <div key={post.id ? post.id : index}>
