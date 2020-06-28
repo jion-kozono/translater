@@ -1,0 +1,7 @@
+type Post @model {
+  id: ID!
+  content: String!
+  description: String!
+  userId: String!
+  likeCount: ID!
+}
