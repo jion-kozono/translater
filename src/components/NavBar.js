@@ -5,7 +5,6 @@ function NavBar() {
     return (
         <>
             <Link to="/">英文一覧</Link><br/>
-            <Link to="translationPostShow">和訳詳細画面</Link><br/>
         </>
     )
 }

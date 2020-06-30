@@ -20,14 +20,14 @@ const PostForm = () => {
         fetchPosts()
         const subscription = API.graphql(graphqlOperation(onCreatePost)).subscribe({
             next: (eventData) => {
-                const newPost = eventData.value.data.onCreatePost;
+                const newPost = eventData.value.data.onCreatePost
                 const Posts = [...posts.filter(r => {
                     return (r.content !== newPost.content)
                     }), newPost]
                 setPosts(...posts, Posts)
                 }
-        });
-        return () => subscription.unsubscribe();
+        })
+        return () => subscription.unsubscribe()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [posts])
 
@@ -49,7 +49,7 @@ const PostForm = () => {
             if (!formState.content || !formState.description) return
             const post = { ...formState }
             setPosts([...posts, post])
-            setFormState(initialState);
+            setFormState(initialState)
             await API.graphql(graphqlOperation(createPost, {input: post}))
         } catch (err) {
             console.log('error creating post:', err)

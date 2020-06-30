@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import { AppBar, Toolbar, Button } from '@material-ui/core'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import NavBar from '../NavBar';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import NavBar from '../NavBar'
 
 const Header = () => {
     const LinkStyle = {

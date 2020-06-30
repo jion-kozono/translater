@@ -1,12 +1,12 @@
 import React from 'react'
-import { Card, CardContent, CardActions, CardHeader, TextField, Button } from '@material-ui/core';
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import IconButton from "@material-ui/core/IconButton";
-import { Link } from 'react-router-dom';
+import { Card, CardContent, CardActions, CardHeader, TextField, Button } from '@material-ui/core'
+import FavoriteIcon from "@material-ui/icons/Favorite"
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
+import IconButton from "@material-ui/core/IconButton"
+import { Link } from 'react-router-dom'
 
 const Posts = (props) => {
-    const index = [1, 2, 3, 4];
+    const index = [1, 2, 3, 4]
     const LinkStyle = {
         textDecoration: "none",
         color: "#fff"
@@ -33,15 +33,13 @@ const Posts = (props) => {
                                 <IconButton aria-label="add to favorites">
                                 <FavoriteIcon />
                                 </IconButton>
-                                <IconButton aria-label="share">
-                                <ShareIcon />
-                                </IconButton>
                                 <IconButton>
+                                <ExpandMoreIcon />
                                 </IconButton>
                             </CardActions>
                         </Card>
                     </Link>
-            )
+                )
             })}
         </>
     )

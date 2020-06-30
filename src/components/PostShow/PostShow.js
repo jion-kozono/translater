@@ -7,6 +7,7 @@ const PostShow = (props) => {
 
     return (
         <>
+            <div>英文詳細画面</div>
             <Card variant="outlined">
                 <CardHeader>Post 1. title</CardHeader>
                 <CardContent>Post 1. content</CardContent>

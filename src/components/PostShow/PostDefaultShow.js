@@ -13,8 +13,8 @@ export default class PostDefaultShow extends Component {
             <>
                 <div>{this.props.title}</div>
                 <PostShow />
-                <TranslationPostForm title="和訳を投稿する"/>
-                <TranslationPosts title="和訳一覧"/>
+                <TranslationPostForm/>
+                <TranslationPosts/>
             </>
         )
     }

@@ -21,7 +21,7 @@ const App = () => {
           <Route exact path='/postForm' render={() => <PostForm title="英文投稿画面" />} />
           <Route exact path='/' render={() => <Posts title="英文一覧" />} />
           <Route exact path='/posts/:id' render={() => <PostDefaultShow titlide="英文詳細画面" />} />
-          <Route exact path='/translationPostShow' render={() => <TranslationPostShow title="和訳詳細画面" />} />
+          <Route exact path='/translationPosts/:id' render={() => <TranslationPostShow title="和訳詳細画面" />} />
           <Route exact path='/userShow' render={() => <UserShow title="ユーザー詳細画面" />} />
         </Switch>
       </Router>

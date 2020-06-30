@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Card, CardContent, CardActions, CardHeader } from '@material-ui/core';
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import IconButton from "@material-ui/core/IconButton";
-import PostShow from '../PostShow/PostShow';
+import { Card, CardContent, CardActions, CardHeader } from '@material-ui/core'
+import FavoriteIcon from "@material-ui/icons/Favorite"
+import IconButton from "@material-ui/core/IconButton"
+import PostShow from '../PostShow/PostShow'
 
 export default class TranslationPostShow extends Component {
     render() {

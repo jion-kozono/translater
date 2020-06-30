@@ -1,12 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import { FormControl, TextField, Button, Box, Typography, makeStyles, Tabs, Tab, AppBar } from '@material-ui/core'
 import MyTranslationPosts from './MyTranslationPosts/MyTranslationPosts'
 import MyLikedPosts from './MyLikedPosts/MyLikedPosts'
 import MyPosts from './MyPosts/MyPosts'
 
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+    const { children, value, index, ...other } = props
 
     return (
         <div
@@ -22,20 +22,20 @@ function TabPanel(props) {
             </Box>
         )}
         </div>
-    );
+    )
 }
 
 TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.any.isRequired,
     value: PropTypes.any.isRequired,
-};
+}
 
 function a11yProps(index) {
     return {
         id: `simple-tab-${index}`,
         'aria-controls': `simple-tabpanel-${index}`,
-    };
+    }
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -43,14 +43,14 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
     },
-}));
+}))
 
 const UserShow = (props) => {
-    const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+    const classes = useStyles()
+    const [value, setValue] = React.useState(0)
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        setValue(newValue)
     }
 
     return (
