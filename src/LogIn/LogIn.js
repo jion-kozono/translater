@@ -28,9 +28,11 @@ const LogIn = () => {
                 <Button variant="contained" color="primary">
                     ログイン
                 </Button>
-                <Button variant="contained" color="primary">
-                    <Link to="/signUp" style={LinkStyle}>新規登録画面へ</Link>
-                </Button>
+                <Link to="/signUp" style={LinkStyle}>
+                    <Button variant="contained" color="primary">
+                            新規登録画面へ
+                    </Button>
+                </Link>
             </FormControl>
         </>
     )
