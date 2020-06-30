@@ -1,38 +1,50 @@
-import React, { Component } from 'react'
-import { Card, CardContent, CardActions, CardHeader, TextField } from '@material-ui/core';
+import React from 'react'
+import { Card, CardContent, CardActions, CardHeader, TextField, Button } from '@material-ui/core';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import IconButton from "@material-ui/core/IconButton";
+import { Link } from 'react-router-dom';
 
-const index = [1, 2, 3, 4];
-export default class Posts extends Component {
-    render() {
-        return (
-            <>
-                <div>{this.props.title}</div>
-                <TextField
-                variant="outlined"
-                label="word検索" >
-                </TextField>
-                {index.map((i, index) => {
-                return (
-                    <Card key={index} variant="outlined">
-                    <CardHeader>Post {i}. title</CardHeader>
-                    <CardContent>Post {i}. content</CardContent>
-                    <CardActions>
-                        <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
-                        </IconButton>
-                        <IconButton aria-label="share">
-                        <ShareIcon />
-                        </IconButton>
-                        <IconButton>
-                        </IconButton>
-                    </CardActions>
-                    </Card>
-                )
-                })}
-            </>
-        )
+const Posts = (props) => {
+    const index = [1, 2, 3, 4];
+    const LinkStyle = {
+        textDecoration: "none",
+        color: "#fff"
     }
+    return (
+        <>
+            <div>{props.title}</div>
+            <TextField
+            variant="outlined"
+            label="word検索" >
+            </TextField>
+            <Link to="/postForm"　style={LinkStyle}>
+                <Button variant="contained" color="primary">
+                    英文を投稿する
+                </Button>
+            </Link>
+            {index.map((i, index) => {
+                return (
+                    <Link to={"/posts/" + i} style={LinkStyle}>
+                        <Card key={index} variant="outlined">
+                            <CardHeader>Post {i}. title</CardHeader>
+                            <CardContent>Post {i}. content</CardContent>
+                            <CardActions>
+                                <IconButton aria-label="add to favorites">
+                                <FavoriteIcon />
+                                </IconButton>
+                                <IconButton aria-label="share">
+                                <ShareIcon />
+                                </IconButton>
+                                <IconButton>
+                                </IconButton>
+                            </CardActions>
+                        </Card>
+                    </Link>
+            )
+            })}
+        </>
+    )
 }
+export default Posts
+
