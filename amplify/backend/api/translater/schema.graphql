@@ -23,8 +23,8 @@ type Post
   @auth(
     rules: [
       { allow: owner }
-      { allow: private, operations: [read] }
-      { allow: public, operations: [read] }
+      { allow: private, provider: userPools, operations: [read] }
+      { allow: public, provider: apiKey, operations: [read] }
     ]
   )
   @searchable
@@ -44,8 +44,8 @@ type TranslationPost
   @auth(
     rules: [
       { allow: owner }
-      { allow: private, operations: [read] }
-      { allow: public, operations: [read] }
+      { allow: private, provider: userPools, operations: [read] }
+      { allow: public, provider: apiKey, operations: [read] }
     ]
   )
   @key(name: "byPost", fields: ["postId", "content"])
@@ -63,8 +63,8 @@ type PostLike
   @auth(
     rules: [
       { allow: owner }
-      { allow: private, operations: [read] }
-      { allow: public, operations: [read] }
+      { allow: private, provider: userPools, operations: [read] }
+      { allow: public, provider: apiKey, operations: [read] }
     ]
   )
   @key(name: "likePByUser", fields: ["userId"])
@@ -80,8 +80,8 @@ type TranslationPostLike
   @auth(
     rules: [
       { allow: owner }
-      { allow: private, operations: [read] }
-      { allow: public, operations: [read] }
+      { allow: private, provider: userPools, operations: [read] }
+      { allow: public, provider: apiKey, operations: [read] }
     ]
   )
   @key(name: "likeTPByUser", fields: ["userId"])

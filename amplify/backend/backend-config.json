@@ -6,5 +6,29 @@
 			"dependsOn": []
 		}
 	},
-	"api": {}
+	"api": {
+		"translater": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"additionalAuthenticationProviders": [
+						{
+							"authenticationType": "API_KEY",
+							"apiKeyConfig": {
+								"description": "sss",
+								"apiKeyExpirationDays": 7
+							}
+						}
+					],
+					"defaultAuthentication": {
+						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
+						"userPoolConfig": {
+							"userPoolId": "authtranslaterbcba602e"
+						}
+					}
+				}
+			}
+		}
+	}
 }
