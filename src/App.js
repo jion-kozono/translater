@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { withAuthenticator } from '@aws-amplify/ui-react'
 import Header from './components/Header/Header'
 import PostForm from './components/PostForm/PostForm'
@@ -15,11 +15,6 @@ const App = () => {
     <>
       <Router>
         <Header />
-        <Link to="postForm">英文を投稿する</Link><br/>
-        <Link to="/">英文一覧</Link><br/>
-        <Link to="postDefaultShow">英文詳細画面</Link><br/>
-        <Link to="translationPostShow">和訳詳細画面</Link><br/>
-        <Link to="userShow">ユーザー詳細画面</Link><hr />　{/* ここはユーザーidがクエリパラメータになり、現時点では仮にuserShowとする */}
         <Switch>
           <Route exact path='/signUp' component={SignUp}/>
           <Route exact path='/logIn' component={LogIn} />
