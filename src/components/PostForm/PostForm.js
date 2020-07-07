@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { API, graphqlOperation } from 'aws-amplify'
 import { FormControl, TextField, Button } from '@material-ui/core'
 import { createPost } from '../../graphql/mutations'
 import { listPosts } from '../../graphql/queries'
 import { onCreatePost } from '../../graphql/subscriptions'
+import { UserContext } from '../../Context/UserContext'
 
 
 const initialState = {
     content: '',
     description: '',
     userId: '',
-    likeCount: 0
 }
 const PostForm = () => {
+    const userAttributes = useContext(UserContext);
     const [formState, setFormState] = useState(initialState)
     const [posts, setPosts] = useState([])
 
@@ -47,7 +48,12 @@ const PostForm = () => {
     async function addPost() {
         try {
             if (!formState.content || !formState.description) return
-            const post = { ...formState }
+            console.log(userAttributes)
+            const userId = userAttributes.sub
+            const post = {
+                ...formState,
+                userId: userId
+            }
             setPosts([...posts, post])
             setFormState(initialState)
             await API.graphql(graphqlOperation(createPost, {input: post}))

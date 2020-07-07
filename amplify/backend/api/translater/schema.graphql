@@ -1,94 +1,93 @@
 type User
-  @model(
-    queries: { get: "getUser" }
-    mutations: { create: "registerUser", update: "updateUser" }
-    subscriptions: null
-  )
-  @auth(rules: [{ allow: owner, operations: [create, delete, update] }]) {
-  id: ID!
-  username: String!
-  email: String!
-  score: String!
-  posts: [Post]! @connection(keyName: "postsByUser", fields: ["id"])
-  translationPosts: [TranslationPost]
-    @connection(keyName: "translationPostsByUser", fields: ["id"])
-  Postikes: [PostLike] @connection(keyName: "likePByUser", fields: ["id"])
-  translationPostikes: [TranslationPostLike]
-    @connection(keyName: "likeTPByUser", fields: ["id"])
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+    @model(
+        queries: { get: "getUser" }
+        mutations: { create: "registerUser", update: "updateUser" }
+        subscriptions: null
+    )
+    @auth(rules: [{ allow: owner, operations: [create, delete, update] }]) {
+    id: ID!
+    username: String!
+    email: String!
+    score: String!
+    posts: [Post]! @connection(keyName: "postsByUser", fields: ["id"])
+    translationPosts: [TranslationPost]
+        @connection(keyName: "translationPostsByUser", fields: ["id"])
+    Postikes: [PostLike] @connection(keyName: "likePByUser", fields: ["id"])
+    translationPostikes: [TranslationPostLike]
+        @connection(keyName: "likeTPByUser", fields: ["id"])
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
 }
 type Post
-  @model
-  @auth(
-    rules: [
-      { allow: owner }
-      { allow: private, provider: userPools, operations: [read] }
-      { allow: public, provider: apiKey, operations: [read] }
-    ]
-  )
-  @searchable
-  @key(name: "postsByUser", fields: ["userId", "content"]) {
-  id: ID!
-  userId: ID!
-  content: String!
-  description: String!
-  translationPosts: [TranslationPost]
-    @connection(keyName: "byPost", fields: ["id"])
-  postLikes: [PostLike] @connection(keyName: "likesByPost", fields: ["id"])
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+    @model
+    @auth(
+        rules: [
+        { allow: owner },
+        { allow: private, provider: userPools, operations: [read] },
+        { allow: public, provider: apiKey, operations: [read] },
+        ]
+    )
+    @searchable
+    @key(name: "postsByUser", fields: ["userId", "content"]) {
+    id: ID!
+    userId: ID!
+    content: String!
+    description: String!
+    translationPosts: [TranslationPost] @connection(keyName: "byPost", fields: ["id"])
+    postLikes: [PostLike] @connection(keyName: "likesByPost", fields: ["id"])
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
 }
 type TranslationPost
-  @model
-  @auth(
-    rules: [
-      { allow: owner }
-      { allow: private, provider: userPools, operations: [read] }
-      { allow: public, provider: apiKey, operations: [read] }
-    ]
-  )
-  @key(name: "byPost", fields: ["postId", "content"])
-  @key(name: "translationPostsByUser", fields: ["userId", "content"]) {
-  id: ID!
-  userId: ID!
-  postId: ID!
-  content: String!
-  translationPostLikes: [TranslationPostLike] @connection(keyName: "likesByTP", fields: ["id"])
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+    @model
+    @auth(
+        rules: [
+        { allow: owner },
+        { allow: private, provider: userPools, operations: [read] },
+        { allow: public, provider: apiKey, operations: [read] }
+        ]
+    )
+    @key(name: "byPost", fields: ["postId", "content"])
+    @key(name: "translationPostsByUser", fields: ["userId", "content"]) {
+    id: ID!
+    userId: ID!
+    postId: ID!
+    content: String!
+    translationPostLikes: [TranslationPostLike] @connection(keyName: "likesByTP", fields: ["id"])
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
 }
 type PostLike
-  @model
-  @auth(
-    rules: [
-      { allow: owner }
-      { allow: private, provider: userPools, operations: [read] }
-      { allow: public, provider: apiKey, operations: [read] }
-    ]
-  )
-  @key(name: "likePByUser", fields: ["userId"])
-  @key(name: "likesByPost", fields: ["postId"]) {
-  id: ID!
-  userId: ID!
-  postId: ID!
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+    @model
+    @auth(
+        rules: [
+        { allow: owner },
+        { allow: private, provider: userPools, operations: [read] },
+        { allow: public, provider: apiKey, operations: [read] },
+        ]
+    )
+    @key(name: "likePByUser", fields: ["userId"])
+    @key(name: "likesByPost", fields: ["postId"]) {
+    id: ID!
+    userId: ID!
+    postId: ID!
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
 }
 type TranslationPostLike
-  @model
-  @auth(
-    rules: [
-      { allow: owner }
-      { allow: private, provider: userPools, operations: [read] }
-      { allow: public, provider: apiKey, operations: [read] }
-    ]
-  )
-  @key(name: "likeTPByUser", fields: ["userId"])
-  @key(name: "likesByTP", fields: ["translationPostId"]) {
-  id: ID!
-  userId: ID!
-  translationPostId: ID!
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+    @model
+    @auth(
+        rules: [
+        { allow: owner },
+        { allow: private, provider: userPools, operations: [read] },
+        { allow: public, provider: apiKey, operations: [read] }
+        ]
+    )
+    @key(name: "likeTPByUser", fields: ["userId"])
+    @key(name: "likesByTP", fields: ["translationPostId"]) {
+    id: ID!
+    userId: ID!
+    translationPostId: ID!
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
 }
