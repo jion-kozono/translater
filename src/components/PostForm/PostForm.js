@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { API, graphqlOperation } from 'aws-amplify'
 import { FormControl, TextField, Button } from '@material-ui/core'
 import { createPost } from '../../graphql/mutations'
-import { listPosts } from '../../graphql/queries'
-import { onCreatePost } from '../../graphql/subscriptions'
 import { UserContext } from '../../Context/UserContext'
+import { PostContext } from '../../Context/PostContext'
 
 
 const initialState = {
@@ -13,47 +12,22 @@ const initialState = {
     userId: '',
 }
 const PostForm = () => {
-    const userAttributes = useContext(UserContext)
+    const {user} = useContext(UserContext)
     const [formState, setFormState] = useState(initialState)
-    const [posts, setPosts] = useState([])
+    const {globalPostState, setGlobalPostState } = useContext(PostContext)
 
-    // useEffect(() => {
-    //     // console.log("a")
-    //     fetchPosts()
-    //     const subscription = API.graphql(graphqlOperation(onCreatePost)).subscribe({
-    //         next: (eventData) => {
-    //             const newPost = eventData.value.data.onCreatePost
-    //             const Posts = [...posts.filter(r => {
-    //                 return (r.content !== newPost.content)
-    //                 }), newPost]
-    //             setPosts(...posts, Posts)
-    //             }
-    //     })
-    //     return () => subscription.unsubscribe()
-    // // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [posts])
-
-    // async function fetchPosts() {
-    //     try {
-    //         const PostData = await API.graphql(graphqlOperation(listPosts))
-    //         const Posts = PostData.data.listPosts.items
-    //         setPosts(Posts)
-    //     } catch (err) {
-    //         console.log('error fetching posts')
-    //     }
-    // }
     function setInput(key, value) {
         setFormState({ ...formState, [key]: value })
     }
     async function addPost() {
         try {
             if (!formState.content || !formState.description) return
-            const userId = userAttributes.userAttributes.sub
+            const userId = user.attributes.sub
             const post = {
                 ...formState,
                 userId: userId
             }
-            setPosts([...posts, post])
+            setGlobalPostState([...globalPostState, post])
             setFormState(initialState)
             await API.graphql(graphqlOperation(createPost, {input: post}))
         } catch (err) {
@@ -62,6 +36,7 @@ const PostForm = () => {
     }
     return (
         <>
+            <div>英文を投稿する</div>
             <FormControl>
                 <TextField
                     onChange={event => setInput('content', event.target.value)}
@@ -85,15 +60,6 @@ const PostForm = () => {
                     Post
                 </Button>
             </FormControl>
-            {
-            posts.map((post, index) => (
-                <div key={post.id ? post.id : index}>
-                    <p>content: {post.content}</p>
-                    <p>description: {post.description}</p>
-                    <hr/>
-                </div>
-                ))
-            }
         </>
     )
 }

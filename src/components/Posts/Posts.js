@@ -13,14 +13,14 @@ import { PostContext } from '../../Context/PostContext'
 const Posts = (props) => {
     const {globalPostState, setGlobalPostState } = useContext(PostContext)
     useEffect(() => {
-        fetchPosts([])
+        fetchPosts()
         const subscription = API.graphql(graphqlOperation(onCreatePost)).subscribe({
             next: (eventData) => {
                 const newPost = eventData.value.data.onCreatePost
                 const Posts = [...globalPostState.filter(r => {
                     return (r.content !== newPost.content)
                 }), newPost]
-                setGlobalPostState({type: 'SET_POSTS', payload: {posts: [...globalPostState, Posts]}})
+                setGlobalPostState(...globalPostState, Posts)
             }
         })
         return () => subscription.unsubscribe()
@@ -30,7 +30,7 @@ const Posts = (props) => {
         try {
             const PostData = await API.graphql(graphqlOperation(listPosts))
             const Posts = PostData.data.listPosts.items
-            setGlobalPostState({ type: 'SET_POSTS', payload: { posts: [Posts] } })
+            setGlobalPostState(Posts)
         } catch (err) {
             console.log('error fetching posts')
         }
@@ -38,7 +38,7 @@ const Posts = (props) => {
     // const index = [1, 2, 3, 4]
     const LinkStyle = {
         textDecoration: "none",
-        color: "#fff"
+        color: "black"
     }
     return (
         <>
@@ -47,41 +47,25 @@ const Posts = (props) => {
             variant="outlined"
             label="word検索" >
             </TextField>
-            <Link to="/postForm"　style={LinkStyle}>
-                <Button variant="contained" color="primary">
-                    英文を投稿する
-                </Button>
-            </Link>
             <PostForm />
-            {
-                globalPostState.posts && globalPostState.posts.map((post, index) => (
-                <div key={index}>
-                    <p>content: {post.content}</p>
-                    <p>description: {post.description}</p>
-                    <hr/>
-                </div>
-                ))
-            }
-            {/* {index.map((i, index) => {
-                return (
-                        <Card key={index} variant="outlined">
-                            <CardHeader>Post {i}. title</CardHeader>
-                            <CardContent>
-                                <Link to={"/posts/" + i} style={LinkStyle}>
-                                    Post {i}. content
-                                </Link>
-                            </CardContent>
-                            <CardActions>
-                                <IconButton aria-label="add to favorites">
-                                <FavoriteIcon />
-                                </IconButton>
-                                <IconButton>
-                                <ExpandMoreIcon />
-                                </IconButton>
-                            </CardActions>
-                        </Card>
-                )
-            })} */}
+            {globalPostState && globalPostState.map((post, index) => (
+                <Card key={index} variant="outlined">
+                    <CardHeader>{post.id}</CardHeader>
+                    <Link to={`/posts/${post.id}`} style={LinkStyle}>
+                        <CardContent>
+                            {post.content}
+                        </CardContent>
+                    </Link>
+                    <CardActions>
+                        <IconButton aria-label="add to favorites">
+                        <FavoriteIcon></FavoriteIcon>
+                        </IconButton>
+                        <IconButton>
+                        <ExpandMoreIcon />
+                        </IconButton>
+                    </CardActions>
+                </Card>
+            ))}
         </>
     )
 }
