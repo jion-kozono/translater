@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { FormControl, TextField, Button, Box, Typography, makeStyles, Tabs, Tab, AppBar } from '@material-ui/core'
+import { FormControl, TextField, Button, Box, Typography, makeStyles, Tabs, Tab, AppBar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import MyTranslationPosts from './MyTranslationPosts/MyTranslationPosts'
 import MyLikedPosts from './MyLikedPosts/MyLikedPosts'
 import MyPosts from './MyPosts/MyPosts'
@@ -44,36 +44,72 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
     },
 }))
+const initialState = {
+    userName: '',
+    selfIntroduction: '',
+}
 
 const UserShow = (props) => {
     const classes = useStyles()
-    const [value, setValue] = React.useState(0)
+    const [value, setValue] = useState(0)
+    const [open, setOpen] = useState(false)
+    const [formState, setFormState] = useState(initialState)
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue)
-    }
+    const handleClickOpen = () => setOpen(true)
+
+    const handleClose = () => setOpen(false)
+
+    const handleChange = (event, newValue) => setValue(newValue)
+
+    const setInput = (key, value) => setFormState({ ...formState, [key]: value })
 
     return (
         <>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                <DialogContent>
+                <DialogContentText>
+                    To subscribe to this website, please enter your email address here. We will send updates
+                    occasionally.
+                </DialogContentText>
+                <TextField
+                    onChange={event => setInput('userName', event.target.value)}
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Name"
+                    value={formState.userName}
+                    fullWidth
+                />
+                <TextField
+                    onChange={event => setInput('selfIntroduction', event.target.value)}
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Self-Introduction"
+                    value={formState.selfIntroduction}
+                    fullWidth
+                />
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                    Cancel
+                </Button>
+                <Button onClick={handleClose} color="primary">
+                    EDIT
+                </Button>
+                </DialogActions>
+            </Dialog>
             <div>{props.title}</div>
             <div>アカウント情報</div>
-            <FormControl>
-                <TextField
-                    label="name"
-                    variant="outlined"
-                    value=""
-                />
-                <TextField
-                    label="self-introduction"
-                    variant="outlined"
-                    value=""
-                />
-                <p>Score: 30</p>
-                <p>Created date: 2020-06-24</p>
-                <Button variant="contained" color="primary">
-                    アカウント情報を編集
-                </Button>
-            </FormControl><hr/>
+            <p>User: </p>
+            <p>Self-introduction: </p>
+            <p>Score: 30</p>
+            <p>Created date: 2020-06-24</p>
+            <Button variant="contained" color="primary" onClick={handleClickOpen}>
+                アカウント情報を編集
+            </Button>
+            <hr/>
             <Button variant="contained" color="secondary">
                 アカウントを削除する
             </Button><hr />
@@ -86,7 +122,9 @@ const UserShow = (props) => {
                     </Tabs>
                 </AppBar>
                 <TabPanel value={value} index={0}>
-                    <MyPosts />
+                    <div>
+                        <MyPosts />
+                    </div>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     <MyTranslationPosts />

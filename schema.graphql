@@ -47,8 +47,8 @@ type TranslationPost
         { allow: public, provider: apiKey, operations: [read] }
         ]
     )
-    @key(name: "byPost", fields: ["postId", "content"])
-    @key(name: "translationPostsByUser", fields: ["userId", "content"]) {
+    @key(name: "byPost", fields: ["postId", "createdAt"])
+    @key(name: "translationPostsByUser", fields: ["userId", "createdAt"]) {
     id: ID!
     userId: ID!
     postId: ID!
@@ -66,8 +66,8 @@ type PostLike
         { allow: public, provider: apiKey, operations: [read] },
         ]
     )
-    @key(name: "likePByUser", fields: ["userId"])
-    @key(name: "likesByPost", fields: ["postId"]) {
+    @key(name: "likePByUser", fields: ["userId", "createdAt"])
+    @key(name: "likesByPost", fields: ["postId", "createdAt"]) {
     id: ID!
     userId: ID!
     postId: ID!
@@ -83,8 +83,8 @@ type TranslationPostLike
         { allow: public, provider: apiKey, operations: [read] }
         ]
     )
-    @key(name: "likeTPByUser", fields: ["userId"])
-    @key(name: "likesByTP", fields: ["translationPostId"]) {
+    @key(name: "likeTPByUser", fields: ["userId", "createdAt"])
+    @key(name: "likesByTP", fields: ["translationPostId", , "createdAt"]) {
     id: ID!
     userId: ID!
     translationPostId: ID!
