@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { FormControl, TextField, Button, Box, Typography, makeStyles, Tabs, Tab, AppBar } from '@material-ui/core'
 import MyTranslationPosts from './MyTranslationPosts/MyTranslationPosts'
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 const UserShow = (props) => {
     const classes = useStyles()
-    const [value, setValue] = React.useState(0)
+    const [value, setValue] = useState(0)
 
     const handleChange = (event, newValue) => {
         setValue(newValue)

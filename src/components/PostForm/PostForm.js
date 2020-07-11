@@ -13,43 +13,42 @@ const initialState = {
     userId: '',
 }
 const PostForm = () => {
-    const userAttributes = useContext(UserContext);
+    const userAttributes = useContext(UserContext)
     const [formState, setFormState] = useState(initialState)
     const [posts, setPosts] = useState([])
 
-    useEffect(() => {
-        fetchPosts()
-        const subscription = API.graphql(graphqlOperation(onCreatePost)).subscribe({
-            next: (eventData) => {
-                const newPost = eventData.value.data.onCreatePost
-                const Posts = [...posts.filter(r => {
-                    return (r.content !== newPost.content)
-                    }), newPost]
-                setPosts(...posts, Posts)
-                }
-        })
-        return () => subscription.unsubscribe()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [posts])
+    // useEffect(() => {
+    //     // console.log("a")
+    //     fetchPosts()
+    //     const subscription = API.graphql(graphqlOperation(onCreatePost)).subscribe({
+    //         next: (eventData) => {
+    //             const newPost = eventData.value.data.onCreatePost
+    //             const Posts = [...posts.filter(r => {
+    //                 return (r.content !== newPost.content)
+    //                 }), newPost]
+    //             setPosts(...posts, Posts)
+    //             }
+    //     })
+    //     return () => subscription.unsubscribe()
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [posts])
 
+    // async function fetchPosts() {
+    //     try {
+    //         const PostData = await API.graphql(graphqlOperation(listPosts))
+    //         const Posts = PostData.data.listPosts.items
+    //         setPosts(Posts)
+    //     } catch (err) {
+    //         console.log('error fetching posts')
+    //     }
+    // }
     function setInput(key, value) {
         setFormState({ ...formState, [key]: value })
-    }
-
-    async function fetchPosts() {
-        try {
-            const PostData = await API.graphql(graphqlOperation(listPosts))
-            const Posts = PostData.data.listPosts.items
-            setPosts(Posts)
-        } catch (err) {
-            console.log('error fetching posts')
-        }
     }
     async function addPost() {
         try {
             if (!formState.content || !formState.description) return
-            console.log(userAttributes)
-            const userId = userAttributes.sub
+            const userId = userAttributes.userAttributes.sub
             const post = {
                 ...formState,
                 userId: userId

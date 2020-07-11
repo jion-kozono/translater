@@ -9,12 +9,10 @@ import SignUp from './SignUp/SignUp'
 import LogIn from './LogIn/LogIn'
 import PostDefaultShow from './components/PostShow/PostDefaultShow'
 import UserShow from './components/UserShow/UserShow'
-import { UserProvider } from './Context/UserContext'
 
 const App = () => {
   return (
     <>
-      <UserProvider />
       <Router>
         <Header />
         <Switch>
@@ -32,4 +30,4 @@ const App = () => {
 }
 
 
-export default withAuthenticator(App, true)
+export default withAuthenticator(App)
