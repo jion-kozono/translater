@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { API, graphqlOperation } from 'aws-amplify'
 import { Card, CardContent, CardActions, CardHeader, TextField } from '@material-ui/core'
 import { onCreatePost } from '../../graphql/subscriptions'
@@ -9,27 +9,28 @@ import { Link } from 'react-router-dom'
 import PostForm from '../PostForm/PostForm'
 import { listPosts } from '../../graphql/queries'
 import { PostContext } from '../../Context/PostContext'
+import { UserContext } from '../../Context/UserContext'
 
-export const Posts = (props) => {
+const Posts = (props) => {
+    const {user} = useContext(UserContext)
     const { globalPostState, setGlobalPostState } = useContext(PostContext)
     useEffect(() => {
         fetchPosts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    useEffect(() => {
         const subscription = API.graphql(graphqlOperation(onCreatePost)).subscribe({
             next: (eventData) => {
                 const newPost = eventData.value.data.onCreatePost
                 const Posts = [...globalPostState.filter(r => {
                     return (r.content !== newPost.content)
                 }), newPost]
-                setGlobalPostState(...globalPostState, Posts)
-                // fetchPosts()
+                setGlobalPostState(Posts)
             }
         })
         return () => subscription.unsubscribe()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-    // useEffect(() => {
-
-    // }, [globalPostState])
+    }, [globalPostState])
     async function fetchPosts() {
         console.log("fetchPosts")
         try {
@@ -50,7 +51,7 @@ export const Posts = (props) => {
             variant="outlined"
             label="word検索" >
             </TextField>
-            <PostForm />
+            {user.username ? <PostForm /> : <p>英文を投稿するにはログインが必要です。</p>}
             {globalPostState && globalPostState.map((post, index) => (
                 <Card key={index} variant="outlined">
                     <CardHeader>{post.id}</CardHeader>
@@ -72,3 +73,4 @@ export const Posts = (props) => {
         </>
     )
 }
+export default Posts

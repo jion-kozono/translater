@@ -1,16 +1,16 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import { Button } from '@material-ui/core'
 import { Auth } from 'aws-amplify'
 import { UserContext } from '../Context/UserContext'
-import history from '../history'
 
 const NavBar = () => {
+    const history = useHistory();
     const {user} =useContext(UserContext)
     const LinkStyle = {
         textDecoration: "none",
-        color: "black"
+        color: "red"
     }
     async function signOut() {
         try {
@@ -22,34 +22,44 @@ const NavBar = () => {
             console.log('error signing out: ', error);
         }
     }
+    const clickLink = (e, linkName) => {
+        e.preventDefault()
+        switch (linkName) {
+            case "signUp":
+                history.push("/signUp")
+                break
+            case "logIn":
+                history.push("/logIn")
+                break
+            case "userShow":
+                history.push("/userShow")
+                break
+            default:
+                break
+        }
+    }
     const AuthenticateRender = (username) => {
         if (username) {
             return (
                 <>
-                    {/* <Link to="/login" style={LinkStyle}> */}
-                        <Button variant="contained" color="default" onClick={signOut}>
-                            LogOut
-                        </Button>
-                    {/* </Link> */}
-                    <Link to="/userShow" style={LinkStyle}>
+                    <Button variant="contained" color="default" onClick={signOut}>
+                        LogOut
+                    </Button>
+                    <Button variant="default" color="default" onClick={(e)=>clickLink(e, "userShow")}>
                         <AccountCircleIcon />
-                        <span>Hello, {username}</span>
-                    </Link>
+                        <span style={{ textTransform: "none" }}>Hello, {username}</span>
+                    </Button>
                 </>
             )
         } else {
             return (
                 <>
-                    <Link to="/signUp" style={LinkStyle}>
-                        <Button variant="contained" color="default">
-                            SignUp
-                        </Button>
-                    </Link>
-                    <Link to="/logIn" style={LinkStyle}>
-                        <Button variant="contained" color="default">
-                            LogIn
-                        </Button>
-                    </Link>
+                    <Button variant="contained" color="default" onClick={(e)=>clickLink(e, "signUp")}>
+                        SignUp
+                    </Button>
+                    <Button variant="contained" color="default" onClick={(e)=>clickLink(e, "logIn")}>
+                        LogIn
+                    </Button>
                 </>
             )
         }

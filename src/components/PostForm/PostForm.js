@@ -26,6 +26,7 @@ const PostForm = () => {
                 ...formState,
                 userId: userId
             }
+            // setGlobalPostState({ type: 'SET_POST', payload: [...globalPostState.post, post]})
             setGlobalPostState([...globalPostState, post])
             setFormState(initialState)
             await API.graphql(graphqlOperation(createPost, {input: post}))
