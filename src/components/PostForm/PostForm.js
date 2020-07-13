@@ -5,7 +5,6 @@ import { createPost } from '../../graphql/mutations'
 import { UserContext } from '../../Context/UserContext'
 import { PostContext } from '../../Context/PostContext'
 
-
 const initialState = {
     content: '',
     description: '',

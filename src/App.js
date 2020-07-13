@@ -1,26 +1,34 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { withAuthenticator } from '@aws-amplify/ui-react'
+import { Router, Switch, Route } from 'react-router-dom'
+import history from './history'
 import Header from './components/Header/Header'
-import Posts from './components/Posts/Posts'
-import TranslationPostShow from './components/TranslationPostShow/TranslationPostShow'
-import SignUp from './SignUp/SignUp'
-import LogIn from './LogIn/LogIn'
-import PostDefaultShow from './components/PostShow/PostDefaultShow'
-import UserShow from './components/UserShow/UserShow'
+import { SignUpForm } from './SignUp/SignUp'
+import { LogInForm } from './LogIn/LogIn'
+import {Posts} from './components/Posts/Posts'
+import {PostDefaultShow} from './components/PostShow/PostDefaultShow'
+import { TranslationPostShow } from './components/TranslationPostShow/TranslationPostShow'
+import {UserShow} from './components/UserShow/UserShow'
+// import { Auth } from './Auth/Auth'
+// import { UserContext } from './Context/UserContext'
 
 const App = () => {
+  // const { user } = useContext(UserContext)
   return (
     <>
-      <Router>
+      <Router history={history}>
         <Header />
         <Switch>
-          <Route exact path='/signUp' component={SignUp}/>
-          <Route exact path='/logIn' component={LogIn} />
-          <Route exact path='/' render={() => <Posts title="英文一覧" />} />
-          <Route exact path='/posts/:id' render={() => <PostDefaultShow titlide="英文詳細画面" />} />
-          <Route exact path='/translationPosts/:id' render={() => <TranslationPostShow title="和訳詳細画面" />} />
-          <Route exact path='/userShow' render={() => <UserShow title="ユーザー詳細画面" />} />
+          <Route exact path='/signUp' component={SignUpForm}/>
+          <Route exact path='/logIn' component={LogInForm} />
+          {/* 認証ずみ */}
+          {/* <Auth user={user}>
+            <Switch> */}
+          <Route exact path='/' component={Posts} />
+          <Route exact path='/posts/:id' component={PostDefaultShow} />
+          <Route exact path='/translationPosts/:id' component={TranslationPostShow} />
+          <Route exact path='/userShow' component={UserShow} />
+            {/* </Switch>
+          </Auth> */}
         </Switch>
       </Router>
     </>
@@ -28,4 +36,4 @@ const App = () => {
 }
 
 
-export default withAuthenticator(App)
+export default App

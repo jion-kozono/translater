@@ -10,6 +10,7 @@ export const UserProvider = ({ children }) => {
     const getUser = async () => {
         const userData = await Auth.currentAuthenticatedUser()
         setUser(userData)
+        console.log(userData)
     }
     return (
         <>

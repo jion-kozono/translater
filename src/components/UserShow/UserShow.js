@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
-import { FormControl, TextField, Button, Box, Typography, makeStyles, Tabs, Tab, AppBar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
+import { TextField, Button, Box, Typography, makeStyles, Tabs, Tab, AppBar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import MyTranslationPosts from './MyTranslationPosts/MyTranslationPosts'
 import MyLikedPosts from './MyLikedPosts/MyLikedPosts'
 import MyPosts from './MyPosts/MyPosts'
+import { UserContext } from '../../Context/UserContext'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props
@@ -44,12 +45,13 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
     },
 }))
-const initialState = {
-    userName: '',
-    selfIntroduction: '',
-}
 
-const UserShow = (props) => {
+export const UserShow = (props) => {
+    const { user } = useContext(UserContext)
+    const initialState = {
+        userName: user.username,
+        selfIntroduction: '',
+    }
     const classes = useStyles()
     const [value, setValue] = useState(0)
     const [open, setOpen] = useState(false)
@@ -66,11 +68,10 @@ const UserShow = (props) => {
     return (
         <>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                <DialogTitle id="form-dialog-title">編集</DialogTitle>
                 <DialogContent>
                 <DialogContentText>
-                    To subscribe to this website, please enter your email address here. We will send updates
-                    occasionally.
+                    ユーザー情報を編集してください。
                 </DialogContentText>
                 <TextField
                     onChange={event => setInput('userName', event.target.value)}
@@ -85,7 +86,7 @@ const UserShow = (props) => {
                     onChange={event => setInput('selfIntroduction', event.target.value)}
                     autoFocus
                     margin="dense"
-                    id="name"
+                    id="selfIntroduction"
                     label="Self-Introduction"
                     value={formState.selfIntroduction}
                     fullWidth
@@ -102,7 +103,7 @@ const UserShow = (props) => {
             </Dialog>
             <div>{props.title}</div>
             <div>アカウント情報</div>
-            <p>User: </p>
+            <p>User: {formState.userName}</p>
             <p>Self-introduction: </p>
             <p>Score: 30</p>
             <p>Created date: 2020-06-24</p>
@@ -136,5 +137,3 @@ const UserShow = (props) => {
         </>
     )
 }
-
-export default UserShow

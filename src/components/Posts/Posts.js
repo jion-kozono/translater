@@ -1,6 +1,6 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { API, graphqlOperation } from 'aws-amplify'
-import { Card, CardContent, CardActions, CardHeader, TextField, Button } from '@material-ui/core'
+import { Card, CardContent, CardActions, CardHeader, TextField } from '@material-ui/core'
 import { onCreatePost } from '../../graphql/subscriptions'
 import FavoriteIcon from "@material-ui/icons/Favorite"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
@@ -10,8 +10,8 @@ import PostForm from '../PostForm/PostForm'
 import { listPosts } from '../../graphql/queries'
 import { PostContext } from '../../Context/PostContext'
 
-const Posts = (props) => {
-    const {globalPostState, setGlobalPostState } = useContext(PostContext)
+export const Posts = (props) => {
+    const { globalPostState, setGlobalPostState } = useContext(PostContext)
     useEffect(() => {
         fetchPosts()
         const subscription = API.graphql(graphqlOperation(onCreatePost)).subscribe({
@@ -21,12 +21,17 @@ const Posts = (props) => {
                     return (r.content !== newPost.content)
                 }), newPost]
                 setGlobalPostState(...globalPostState, Posts)
+                // fetchPosts()
             }
         })
         return () => subscription.unsubscribe()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [globalPostState])
+    }, [])
+    // useEffect(() => {
+
+    // }, [globalPostState])
     async function fetchPosts() {
+        console.log("fetchPosts")
         try {
             const PostData = await API.graphql(graphqlOperation(listPosts))
             const Posts = PostData.data.listPosts.items
@@ -35,14 +40,12 @@ const Posts = (props) => {
             console.log('error fetching posts')
         }
     }
-    // const index = [1, 2, 3, 4]
     const LinkStyle = {
         textDecoration: "none",
         color: "black"
     }
     return (
         <>
-            <div>{props.title}</div>
             <TextField
             variant="outlined"
             label="word検索" >
@@ -69,5 +72,3 @@ const Posts = (props) => {
         </>
     )
 }
-export default Posts
-
