@@ -18,28 +18,13 @@ export const syncUsers = /* GraphQL */ `
         id
         username
         email
+        selfIntroduction
         score
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
-        posts {
-          nextToken
-          startedAt
-        }
-        translationPosts {
-          nextToken
-          startedAt
-        }
-        Postikes {
-          nextToken
-          startedAt
-        }
-        translationPostikes {
-          nextToken
-          startedAt
-        }
       }
       nextToken
       startedAt
@@ -52,6 +37,7 @@ export const getUser = /* GraphQL */ `
       id
       username
       email
+      selfIntroduction
       score
       createdAt
       updatedAt
@@ -59,63 +45,79 @@ export const getUser = /* GraphQL */ `
       _deleted
       _lastChangedAt
       posts {
-        items {
-          id
-          userId
-          content
-          description
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       translationPosts {
-        items {
-          id
-          userId
-          postId
-          content
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       Postikes {
-        items {
-          id
-          userId
-          postId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       translationPostikes {
-        items {
-          id
-          userId
-          translationPostId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        username
+        email
+        selfIntroduction
+        score
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const userByEmail = /* GraphQL */ `
+  query UserByEmail(
+    $email: String
+    $id: ModelIDKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    userByEmail(
+      email: $email
+      id: $id
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        username
+        email
+        selfIntroduction
+        score
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -132,31 +134,10 @@ export const getPost = /* GraphQL */ `
       _deleted
       _lastChangedAt
       translationPosts {
-        items {
-          id
-          userId
-          postId
-          content
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       postLikes {
-        items {
-          id
-          userId
-          postId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
@@ -180,14 +161,6 @@ export const listPosts = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        translationPosts {
-          nextToken
-          startedAt
-        }
-        postLikes {
-          nextToken
-          startedAt
-        }
       }
       nextToken
       startedAt
@@ -217,14 +190,6 @@ export const searchPosts = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        translationPosts {
-          nextToken
-          startedAt
-        }
-        postLikes {
-          nextToken
-          startedAt
-        }
       }
       nextToken
       total
@@ -254,14 +219,6 @@ export const syncPosts = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        translationPosts {
-          nextToken
-          startedAt
-        }
-        postLikes {
-          nextToken
-          startedAt
-        }
       }
       nextToken
       startedAt
@@ -281,16 +238,6 @@ export const getTranslationPost = /* GraphQL */ `
       _deleted
       _lastChangedAt
       translationPostLikes {
-        items {
-          id
-          userId
-          translationPostId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
@@ -318,10 +265,6 @@ export const listTranslationPosts = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        translationPostLikes {
-          nextToken
-          startedAt
-        }
       }
       nextToken
       startedAt
@@ -351,10 +294,6 @@ export const syncTranslationPosts = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
-        translationPostLikes {
-          nextToken
-          startedAt
-        }
       }
       nextToken
       startedAt

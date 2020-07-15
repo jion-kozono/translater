@@ -1,6 +1,5 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import history from './history'
 import Header from './components/Header/Header'
 import { SignUpForm } from './SignUp/SignUp'
 import { LogInForm } from './LogIn/LogIn'

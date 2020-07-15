@@ -14,31 +14,10 @@ export const onCreatePost = /* GraphQL */ `
       _deleted
       _lastChangedAt
       translationPosts {
-        items {
-          id
-          userId
-          postId
-          content
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       postLikes {
-        items {
-          id
-          userId
-          postId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
@@ -58,31 +37,10 @@ export const onUpdatePost = /* GraphQL */ `
       _deleted
       _lastChangedAt
       translationPosts {
-        items {
-          id
-          userId
-          postId
-          content
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       postLikes {
-        items {
-          id
-          userId
-          postId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
@@ -102,31 +60,10 @@ export const onDeletePost = /* GraphQL */ `
       _deleted
       _lastChangedAt
       translationPosts {
-        items {
-          id
-          userId
-          postId
-          content
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       postLikes {
-        items {
-          id
-          userId
-          postId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
@@ -146,16 +83,6 @@ export const onCreateTranslationPost = /* GraphQL */ `
       _deleted
       _lastChangedAt
       translationPostLikes {
-        items {
-          id
-          userId
-          translationPostId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
@@ -175,16 +102,6 @@ export const onUpdateTranslationPost = /* GraphQL */ `
       _deleted
       _lastChangedAt
       translationPostLikes {
-        items {
-          id
-          userId
-          translationPostId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
@@ -204,16 +121,6 @@ export const onDeleteTranslationPost = /* GraphQL */ `
       _deleted
       _lastChangedAt
       translationPostLikes {
-        items {
-          id
-          userId
-          translationPostId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }

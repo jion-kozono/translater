@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { TextField, Button, Box, Typography, makeStyles, Tabs, Tab, AppBar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import MyTranslationPosts from './MyTranslationPosts/MyTranslationPosts'
@@ -47,9 +47,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const UserShow = (props) => {
-    const { user } = useContext(UserContext)
+    const { userInfo, user } = useContext(UserContext)
     const initialState = {
-        userName: user.username,
+        userName: "",
         selfIntroduction: '',
     }
     const classes = useStyles()
@@ -64,76 +64,88 @@ export const UserShow = (props) => {
     const handleChange = (event, newValue) => setValue(newValue)
 
     const setInput = (key, value) => setFormState({ ...formState, [key]: value })
-
+    useEffect(() => {
+        setFormState({
+            userName: user.username,
+            selfIntroduction: user.selfIntroduction
+        })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user.username])
     return (
-        <>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">編集</DialogTitle>
-                <DialogContent>
-                <DialogContentText>
-                    ユーザー情報を編集してください。
-                </DialogContentText>
-                <TextField
-                    onChange={event => setInput('userName', event.target.value)}
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Name"
-                    value={formState.userName}
-                    fullWidth
-                />
-                <TextField
-                    onChange={event => setInput('selfIntroduction', event.target.value)}
-                    autoFocus
-                    margin="dense"
-                    id="selfIntroduction"
-                    label="Self-Introduction"
-                    value={formState.selfIntroduction}
-                    fullWidth
-                />
-                </DialogContent>
-                <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                    Cancel
+        <>{!user.username ? "ユーザーが取得できませんでした。" :
+            <>
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">編集</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            ユーザー情報を編集してください。
+                    </DialogContentText>
+                        <TextField
+                            onChange={event => setInput('userName', event.target.value)}
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="Name"
+                            value={formState.userName}
+                            fullWidth
+                        />
+                        <TextField
+                            onChange={event => setInput('selfIntroduction', event.target.value)}
+                            autoFocus
+                            margin="dense"
+                            id="selfIntroduction"
+                            variant="outlined"
+                            multiline
+                            rows={4}
+                            rowsMax={6}
+                            label="Self-Introduction"
+                            value={formState.selfIntroduction}
+                            fullWidth
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            Cancel
+                    </Button>
+                        <Button onClick={handleClose} color="primary">
+                            EDIT
+                    </Button>
+                    </DialogActions>
+                </Dialog>
+                <div>{props.title}</div>
+                <div>アカウント情報</div>
+                <p>User: {user.username}</p>
+                <p>Self-introduction: {user.selfIntroduction}</p>
+                <p>Score: {user.score}</p>
+                <p>Created date: {user.createdAt}</p>
+                <Button variant="contained" color="primary" onClick={handleClickOpen}>
+                    アカウント情報を編集
                 </Button>
-                <Button onClick={handleClose} color="primary">
-                    EDIT
-                </Button>
-                </DialogActions>
-            </Dialog>
-            <div>{props.title}</div>
-            <div>アカウント情報</div>
-            <p>User: {formState.userName}</p>
-            <p>Self-introduction: </p>
-            <p>Score: 30</p>
-            <p>Created date: 2020-06-24</p>
-            <Button variant="contained" color="primary" onClick={handleClickOpen}>
-                アカウント情報を編集
-            </Button>
-            <hr/>
-            <Button variant="contained" color="secondary">
-                アカウントを削除する
-            </Button><hr />
-            <div className={classes.root}>
-                <AppBar position="static">
-                    <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                    <Tab label="MY POSTS" {...a11yProps(0)} />
-                    <Tab label="MY TRANSLATION" {...a11yProps(1)} />
-                    <Tab label="LIKED" {...a11yProps(2)} />
-                    </Tabs>
-                </AppBar>
-                <TabPanel value={value} index={0}>
-                    <div>
-                        <MyPosts />
-                    </div>
-                </TabPanel>
-                <TabPanel value={value} index={1}>
-                    <MyTranslationPosts />
-                </TabPanel>
-                <TabPanel value={value} index={2}>
-                    <MyLikedPosts />
-                </TabPanel>
-            </div>
+                <hr />
+                <Button variant="contained" color="secondary">
+                    アカウントを削除する
+                </Button><hr />
+                <div className={classes.root}>
+                    <AppBar position="static">
+                        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+                            <Tab label="MY POSTS" {...a11yProps(0)} />
+                            <Tab label="MY TRANSLATION" {...a11yProps(1)} />
+                            <Tab label="LIKED" {...a11yProps(2)} />
+                        </Tabs>
+                    </AppBar>
+                    <TabPanel value={value} index={0}>
+                        <div>
+                            <MyPosts />
+                        </div>
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                        <MyTranslationPosts />
+                    </TabPanel>
+                    <TabPanel value={value} index={2}>
+                        <MyLikedPosts />
+                    </TabPanel>
+                </div>
+            </>}
         </>
     )
 }

@@ -11,7 +11,7 @@ const initialState = {
     userId: '',
 }
 const PostForm = () => {
-    const {user} = useContext(UserContext)
+    const {userInfo} = useContext(UserContext)
     const [formState, setFormState] = useState(initialState)
     const {globalPostState, setGlobalPostState } = useContext(PostContext)
 
@@ -21,7 +21,8 @@ const PostForm = () => {
     async function addPost() {
         try {
             if (!formState.content || !formState.description) return
-            const userId = user.attributes.sub
+            const userId = userInfo.attributes.sub
+            console.log(userInfo)
             const post = {
                 ...formState,
                 userId: userId

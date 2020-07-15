@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { FormControl, Button, InputLabel, Input, FormHelperText } from '@material-ui/core'
 import { Auth } from 'aws-amplify';
-import history from '../history';
 
 export const LogInForm = () => {
+    const history = useHistory()
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
     async function SignIn() {

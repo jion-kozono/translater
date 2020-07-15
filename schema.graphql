@@ -1,13 +1,14 @@
 type User
     @model(
-        queries: { get: "getUser" }
         mutations: { create: "registerUser", update: "updateUser" }
         subscriptions: null
     )
-    @auth(rules: [{ allow: owner, operations: [create, delete, update] }]) {
+    @auth(rules: [{ allow: owner, operations: [create, delete, update] }])
+    @key(name: "byEmail", fields: ["email", "id"], queryField: "userByEmail") {
     id: ID!
     username: String!
     email: String!
+    selfIntroduction: String
     score: String!
     posts: [Post]! @connection(keyName: "postsByUser", fields: ["id"])
     translationPosts: [TranslationPost]

@@ -12,7 +12,7 @@ import { PostContext } from '../../Context/PostContext'
 import { UserContext } from '../../Context/UserContext'
 
 const Posts = (props) => {
-    const {user} = useContext(UserContext)
+    const {userInfo} = useContext(UserContext)
     const { globalPostState, setGlobalPostState } = useContext(PostContext)
     useEffect(() => {
         fetchPosts()
@@ -51,7 +51,7 @@ const Posts = (props) => {
             variant="outlined"
             label="word検索" >
             </TextField>
-            {user.username ? <PostForm /> : <p>英文を投稿するにはログインが必要です。</p>}
+            {userInfo.username ? <PostForm /> : <p>英文を投稿するにはログインが必要です。</p>}
             {globalPostState && globalPostState.map((post, index) => (
                 <Card key={index} variant="outlined">
                     <CardHeader>{post.id}</CardHeader>

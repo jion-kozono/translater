@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { FormControl, Button, Input, InputLabel, FormHelperText } from '@material-ui/core'
-import { Auth } from 'aws-amplify'
-import history from '../history'
+import { Auth, graphqlOperation, API } from 'aws-amplify'
+import { registerUser } from '../graphql/mutations'
 
 export const SignUpForm = () => {
+    const history = useHistory()
     const [username, setUserName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -29,9 +30,23 @@ export const SignUpForm = () => {
             await Auth.confirmSignUp(username, code);
             await Auth.signIn(username, password)
             history.push("/")
+            createUser()
             document.location.reload()
         } catch (error) {
             console.log('error confirming sign up', error);
+        }
+    }
+    const createUser = async () => {
+        try {
+            const input = {
+                username: username,
+                email: email,
+                selfIntroduction: "",
+                score: 0,
+            }
+            await API.graphql(graphqlOperation(registerUser, { input }))
+        } catch (err) {
+            console.log('error creating post:', err)
         }
     }
     const LinkStyle = {

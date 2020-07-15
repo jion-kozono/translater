@@ -10,6 +10,7 @@ export const registerUser = /* GraphQL */ `
       id
       username
       email
+      selfIntroduction
       score
       createdAt
       updatedAt
@@ -17,60 +18,18 @@ export const registerUser = /* GraphQL */ `
       _deleted
       _lastChangedAt
       posts {
-        items {
-          id
-          userId
-          content
-          description
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       translationPosts {
-        items {
-          id
-          userId
-          postId
-          content
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       Postikes {
-        items {
-          id
-          userId
-          postId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       translationPostikes {
-        items {
-          id
-          userId
-          translationPostId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
@@ -86,6 +45,7 @@ export const updateUser = /* GraphQL */ `
       id
       username
       email
+      selfIntroduction
       score
       createdAt
       updatedAt
@@ -93,60 +53,18 @@ export const updateUser = /* GraphQL */ `
       _deleted
       _lastChangedAt
       posts {
-        items {
-          id
-          userId
-          content
-          description
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       translationPosts {
-        items {
-          id
-          userId
-          postId
-          content
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       Postikes {
-        items {
-          id
-          userId
-          postId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       translationPostikes {
-        items {
-          id
-          userId
-          translationPostId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
@@ -169,31 +87,10 @@ export const createPost = /* GraphQL */ `
       _deleted
       _lastChangedAt
       translationPosts {
-        items {
-          id
-          userId
-          postId
-          content
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       postLikes {
-        items {
-          id
-          userId
-          postId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
@@ -216,31 +113,10 @@ export const updatePost = /* GraphQL */ `
       _deleted
       _lastChangedAt
       translationPosts {
-        items {
-          id
-          userId
-          postId
-          content
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       postLikes {
-        items {
-          id
-          userId
-          postId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
@@ -263,31 +139,10 @@ export const deletePost = /* GraphQL */ `
       _deleted
       _lastChangedAt
       translationPosts {
-        items {
-          id
-          userId
-          postId
-          content
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
       postLikes {
-        items {
-          id
-          userId
-          postId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
@@ -310,16 +165,6 @@ export const createTranslationPost = /* GraphQL */ `
       _deleted
       _lastChangedAt
       translationPostLikes {
-        items {
-          id
-          userId
-          translationPostId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
@@ -342,16 +187,6 @@ export const updateTranslationPost = /* GraphQL */ `
       _deleted
       _lastChangedAt
       translationPostLikes {
-        items {
-          id
-          userId
-          translationPostId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
@@ -374,16 +209,6 @@ export const deleteTranslationPost = /* GraphQL */ `
       _deleted
       _lastChangedAt
       translationPostLikes {
-        items {
-          id
-          userId
-          translationPostId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         nextToken
         startedAt
       }
