@@ -5,11 +5,13 @@ import { userByEmail } from '../graphql/queries';
 export const UserContext = createContext()
 export const UserProvider = ({ children }) => {
     const initialState = {
+        id: "",
         username: "",
         email: "",
         selfIntroduction: "",
         score: 0,
         createdAt: "",
+        _version: 0
     }
     const [userInfo, setUserInfo] = useState([])
     const [user, setUser] = useState(initialState)
@@ -20,28 +22,31 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
     }, [user])
     const getUserData = async () => {
-        const userData = await Auth.currentAuthenticatedUser()
-        setUserInfo(userData)
         try {
+            const userData = await Auth.currentAuthenticatedUser()
+            setUserInfo(userData)
             const email = userData.attributes.email
             const User = await API.graphql(graphqlOperation(userByEmail, { email }))
             const userItems = User.data.userByEmail.items[0]
-            const createdAt = new Date(userItems.createdAt).toLocaleString().split(' ')[0] //ローカルの時刻
+            const createdAt = userItems.createdAt.split(' ')[0] //時間切り捨て
             setUser({
+                id: userItems.id,
                 username: userItems.username,
                 email: userItems.email,
                 selfIntroduction: userItems.selfIntroduction,
                 //日付以下を削除
                 score: userItems.score,
-                createdAt
+                createdAt,
+                _version: userItems._version
             })
         } catch (err) {
+            // getUserData()
             console.log('error fetching user')
         }
     }
     return (
         <>
-            <UserContext.Provider value={{ userInfo, user }}>
+            <UserContext.Provider value={{ userInfo, user, setUser }}>
                 {children}
             </UserContext.Provider>
         </>

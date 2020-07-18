@@ -12,20 +12,20 @@ import { PostContext } from '../../Context/PostContext'
 import { UserContext } from '../../Context/UserContext'
 
 const Posts = (props) => {
-    const {userInfo} = useContext(UserContext)
+    const { user } = useContext(UserContext)
     const { globalPostState, setGlobalPostState } = useContext(PostContext)
     useEffect(() => {
         fetchPosts()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     useEffect(() => {
-        const subscription = API.graphql(graphqlOperation(onCreatePost)).subscribe({
+        const subscription = API.graphql(graphqlOperation(onCreatePost, {userId: user.id})).subscribe({
             next: (eventData) => {
                 const newPost = eventData.value.data.onCreatePost
                 const Posts = [...globalPostState.filter(r => {
                     return (r.content !== newPost.content)
                 }), newPost]
-                setGlobalPostState(Posts)
+                setGlobalPostState([newPost, ...Posts])
             }
         })
         return () => subscription.unsubscribe()
@@ -38,7 +38,7 @@ const Posts = (props) => {
             const Posts = PostData.data.listPosts.items
             setGlobalPostState(Posts)
         } catch (err) {
-            console.log('error fetching posts')
+            console.log('error fetching posts', err)
         }
     }
     const LinkStyle = {
@@ -51,13 +51,19 @@ const Posts = (props) => {
             variant="outlined"
             label="word検索" >
             </TextField>
-            {userInfo.username ? <PostForm /> : <p>英文を投稿するにはログインが必要です。</p>}
+            {user.username ? <PostForm /> : <p>英文を投稿するにはログインが必要です。</p>}
             {globalPostState && globalPostState.map((post, index) => (
-                <Card key={index} variant="outlined">
-                    <CardHeader>{post.id}</CardHeader>
+                <Card key={index} variant="outlined" style={{"border": "ridge", "margin": "10px"}}>
+                    <CardHeader style={{"padding": "0"}}>{post.id}</CardHeader>
                     <Link to={`/posts/${post.id}`} style={LinkStyle}>
                         <CardContent>
+                            {post.user.username}
+                        </CardContent>
+                        <CardContent>
                             {post.content}
+                        </CardContent>
+                        <CardContent style={{"border": "solid 0.2px"}}>
+                            description: {post.description}
                         </CardContent>
                     </Link>
                     <CardActions>

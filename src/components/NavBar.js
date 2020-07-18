@@ -7,7 +7,7 @@ import { UserContext } from '../Context/UserContext'
 
 const NavBar = () => {
     const history = useHistory();
-    const {userInfo} =useContext(UserContext)
+    const {user} =useContext(UserContext)
     const LinkStyle = {
         textDecoration: "none",
         color: "red"
@@ -67,7 +67,7 @@ const NavBar = () => {
     return (
         <>
             <Link to="/" style={LinkStyle}>英文一覧</Link><br />
-            {AuthenticateRender(userInfo.username)}
+            {AuthenticateRender(user.username)}
         </>
     )
 }

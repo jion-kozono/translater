@@ -5,6 +5,9 @@ import MyTranslationPosts from './MyTranslationPosts/MyTranslationPosts'
 import MyLikedPosts from './MyLikedPosts/MyLikedPosts'
 import MyPosts from './MyPosts/MyPosts'
 import { UserContext } from '../../Context/UserContext'
+import { API, graphqlOperation } from 'aws-amplify'
+import { updateUser } from '../../graphql/mutations'
+import { onUpdateUser } from '../../graphql/subscriptions'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props
@@ -47,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const UserShow = (props) => {
-    const { userInfo, user } = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext)
     const initialState = {
         userName: "",
         selfIntroduction: '',
@@ -64,11 +67,36 @@ export const UserShow = (props) => {
     const handleChange = (event, newValue) => setValue(newValue)
 
     const setInput = (key, value) => setFormState({ ...formState, [key]: value })
+    const updateUserData = async () => {
+        const updatedAt = new Date().toLocaleString() //ローカルの時刻
+        const input = {
+            id: user.id,
+            username: formState.userName,
+            selfIntroduction: formState.selfIntroduction,
+            updatedAt,
+            _version: user._version
+        }
+        try {
+            await API.graphql(graphqlOperation(updateUser, { input }))
+            setFormState(initialState)
+            handleClose()
+        } catch (err) {
+            console.log("err updating user", err)
+        }
+    }
     useEffect(() => {
         setFormState({
             userName: user.username,
             selfIntroduction: user.selfIntroduction
         })
+        const subscription = API.graphql(graphqlOperation(onUpdateUser)).subscribe({
+            next: (eventData) => {
+                const newUser = eventData.value.data.onUpdateUser
+                newUser.createdAt = user.createdAt.split(' ')[0] //時間切り捨て
+                setUser(newUser)
+            }
+        })
+        return () => subscription.unsubscribe()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user.username])
     return (
@@ -107,7 +135,7 @@ export const UserShow = (props) => {
                         <Button onClick={handleClose} color="primary">
                             Cancel
                     </Button>
-                        <Button onClick={handleClose} color="primary">
+                        <Button onClick={updateUserData} color="primary">
                             EDIT
                     </Button>
                     </DialogActions>

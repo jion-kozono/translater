@@ -5,14 +5,14 @@ import { createPost } from '../../graphql/mutations'
 import { UserContext } from '../../Context/UserContext'
 import { PostContext } from '../../Context/PostContext'
 
-const initialState = {
+const initialFormState = {
     content: '',
     description: '',
-    userId: '',
 }
+
 const PostForm = () => {
-    const {userInfo} = useContext(UserContext)
-    const [formState, setFormState] = useState(initialState)
+    const { user } = useContext(UserContext)
+    const [formState, setFormState] = useState(initialFormState)
     const {globalPostState, setGlobalPostState } = useContext(PostContext)
 
     function setInput(key, value) {
@@ -21,16 +21,19 @@ const PostForm = () => {
     async function addPost() {
         try {
             if (!formState.content || !formState.description) return
-            const userId = userInfo.attributes.sub
-            console.log(userInfo)
-            const post = {
+            const input = {
                 ...formState,
-                userId: userId
+                userId: user.id,
             }
-            // setGlobalPostState({ type: 'SET_POST', payload: [...globalPostState.post, post]})
-            setGlobalPostState([...globalPostState, post])
-            setFormState(initialState)
-            await API.graphql(graphqlOperation(createPost, {input: post}))
+            await API.graphql(graphqlOperation(createPost, { input }))
+            const post = {
+                ...input,
+                user: {
+                    username: user.username
+                }
+            }
+            setGlobalPostState([post, ...globalPostState])
+            setFormState(initialFormState)
         } catch (err) {
             console.log('error creating post:', err)
         }

@@ -1,6 +1,154 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser {
+    onCreateUser {
+      id
+      username
+      email
+      selfIntroduction
+      score
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      posts {
+        items {
+          id
+          userId
+          content
+          description
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      translationPosts {
+        items {
+          id
+          userId
+          postId
+          content
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      Postikes {
+        items {
+          id
+          userId
+          postId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      translationPostikes {
+        items {
+          id
+          userId
+          translationPostId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser {
+    onUpdateUser {
+      id
+      username
+      email
+      selfIntroduction
+      score
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      posts {
+        items {
+          id
+          userId
+          content
+          description
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      translationPosts {
+        items {
+          id
+          userId
+          postId
+          content
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      Postikes {
+        items {
+          id
+          userId
+          postId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      translationPostikes {
+        items {
+          id
+          userId
+          translationPostId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
 export const onCreatePost = /* GraphQL */ `
   subscription OnCreatePost {
     onCreatePost {
@@ -10,14 +158,63 @@ export const onCreatePost = /* GraphQL */ `
       description
       createdAt
       updatedAt
+      user {
+        id
+        username
+        email
+        selfIntroduction
+        score
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        posts {
+          nextToken
+          startedAt
+        }
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        Postikes {
+          nextToken
+          startedAt
+        }
+        translationPostikes {
+          nextToken
+          startedAt
+        }
+      }
       _version
       _deleted
       _lastChangedAt
       translationPosts {
+        items {
+          id
+          userId
+          postId
+          content
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
       postLikes {
+        items {
+          id
+          userId
+          postId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
@@ -33,14 +230,63 @@ export const onUpdatePost = /* GraphQL */ `
       description
       createdAt
       updatedAt
+      user {
+        id
+        username
+        email
+        selfIntroduction
+        score
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        posts {
+          nextToken
+          startedAt
+        }
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        Postikes {
+          nextToken
+          startedAt
+        }
+        translationPostikes {
+          nextToken
+          startedAt
+        }
+      }
       _version
       _deleted
       _lastChangedAt
       translationPosts {
+        items {
+          id
+          userId
+          postId
+          content
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
       postLikes {
+        items {
+          id
+          userId
+          postId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
@@ -56,14 +302,63 @@ export const onDeletePost = /* GraphQL */ `
       description
       createdAt
       updatedAt
+      user {
+        id
+        username
+        email
+        selfIntroduction
+        score
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        posts {
+          nextToken
+          startedAt
+        }
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        Postikes {
+          nextToken
+          startedAt
+        }
+        translationPostikes {
+          nextToken
+          startedAt
+        }
+      }
       _version
       _deleted
       _lastChangedAt
       translationPosts {
+        items {
+          id
+          userId
+          postId
+          content
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
       postLikes {
+        items {
+          id
+          userId
+          postId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
@@ -79,10 +374,48 @@ export const onCreateTranslationPost = /* GraphQL */ `
       content
       createdAt
       updatedAt
+      user {
+        id
+        username
+        email
+        selfIntroduction
+        score
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        posts {
+          nextToken
+          startedAt
+        }
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        Postikes {
+          nextToken
+          startedAt
+        }
+        translationPostikes {
+          nextToken
+          startedAt
+        }
+      }
       _version
       _deleted
       _lastChangedAt
       translationPostLikes {
+        items {
+          id
+          userId
+          translationPostId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
@@ -98,10 +431,48 @@ export const onUpdateTranslationPost = /* GraphQL */ `
       content
       createdAt
       updatedAt
+      user {
+        id
+        username
+        email
+        selfIntroduction
+        score
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        posts {
+          nextToken
+          startedAt
+        }
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        Postikes {
+          nextToken
+          startedAt
+        }
+        translationPostikes {
+          nextToken
+          startedAt
+        }
+      }
       _version
       _deleted
       _lastChangedAt
       translationPostLikes {
+        items {
+          id
+          userId
+          translationPostId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
@@ -117,10 +488,48 @@ export const onDeleteTranslationPost = /* GraphQL */ `
       content
       createdAt
       updatedAt
+      user {
+        id
+        username
+        email
+        selfIntroduction
+        score
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        posts {
+          nextToken
+          startedAt
+        }
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        Postikes {
+          nextToken
+          startedAt
+        }
+        translationPostikes {
+          nextToken
+          startedAt
+        }
+      }
       _version
       _deleted
       _lastChangedAt
       translationPostLikes {
+        items {
+          id
+          userId
+          translationPostId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }

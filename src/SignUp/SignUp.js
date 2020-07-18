@@ -14,11 +14,8 @@ export const SignUpForm = () => {
     async function signUp() {
         try {
             await Auth.signUp({
-                username,
+                username: email,
                 password,
-                attributes: {
-                    email
-                }
             })
             setIsSignUp(true)
         } catch (error) {
@@ -27,10 +24,10 @@ export const SignUpForm = () => {
     }
     async function confirmSignUp() {
         try {
-            await Auth.confirmSignUp(username, code);
-            await Auth.signIn(username, password)
+            await Auth.confirmSignUp(email, code);
+            await Auth.signIn(email, password)
+            await createUser()
             history.push("/")
-            createUser()
             document.location.reload()
         } catch (error) {
             console.log('error confirming sign up', error);
@@ -38,15 +35,17 @@ export const SignUpForm = () => {
     }
     const createUser = async () => {
         try {
+            const createdAt = new Date().toLocaleString() //ローカルの時刻
             const input = {
                 username: username,
                 email: email,
                 selfIntroduction: "",
                 score: 0,
+                createdAt
             }
             await API.graphql(graphqlOperation(registerUser, { input }))
         } catch (err) {
-            console.log('error creating post:', err)
+            console.log('error creating user:', err)
         }
     }
     const LinkStyle = {

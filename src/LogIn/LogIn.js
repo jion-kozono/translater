@@ -5,11 +5,11 @@ import { Auth } from 'aws-amplify';
 
 export const LogInForm = () => {
     const history = useHistory()
-    const [userName, setUserName] = useState("")
+    const [userEmail, setUserEmail] = useState("")
     const [password, setPassword] = useState("")
     async function SignIn() {
         try {
-            await Auth.signIn(userName, password)
+            await Auth.signIn(userEmail, password)
             history.push("/")
             document.location.reload()
         } catch (error) {
@@ -26,14 +26,14 @@ export const LogInForm = () => {
                 アカウント未保持の場合、新規登録してください。
             </div>
             <FormControl>
-                <InputLabel htmlFor="my-input1">User Name</InputLabel>
+                <InputLabel htmlFor="my-input1">Email</InputLabel>
                 <Input
                     id="my-input1"
                     variant="outlined"
                     name = "name"
-                    onChange = {event=>setUserName(event.target.value)}
+                    onChange = {event=>setUserEmail(event.target.value)}
                 />
-                <FormHelperText id="my-helper-text">ユーザー名を入力してください</FormHelperText>
+                <FormHelperText id="my-helper-text">メールアドレスを入力してください</FormHelperText>
             </FormControl><br/>
             <FormControl>
                 <InputLabel htmlFor="my-input2">Password</InputLabel>

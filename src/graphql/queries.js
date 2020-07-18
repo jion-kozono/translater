@@ -25,6 +25,22 @@ export const syncUsers = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        posts {
+          nextToken
+          startedAt
+        }
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        Postikes {
+          nextToken
+          startedAt
+        }
+        translationPostikes {
+          nextToken
+          startedAt
+        }
       }
       nextToken
       startedAt
@@ -45,18 +61,60 @@ export const getUser = /* GraphQL */ `
       _deleted
       _lastChangedAt
       posts {
+        items {
+          id
+          userId
+          content
+          description
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
       translationPosts {
+        items {
+          id
+          userId
+          postId
+          content
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
       Postikes {
+        items {
+          id
+          userId
+          postId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
       translationPostikes {
+        items {
+          id
+          userId
+          translationPostId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
@@ -81,6 +139,22 @@ export const listUsers = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        posts {
+          nextToken
+          startedAt
+        }
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        Postikes {
+          nextToken
+          startedAt
+        }
+        translationPostikes {
+          nextToken
+          startedAt
+        }
       }
       nextToken
       startedAt
@@ -89,7 +163,7 @@ export const listUsers = /* GraphQL */ `
 `;
 export const userByEmail = /* GraphQL */ `
   query UserByEmail(
-    $email: String
+    $email: AWSEmail
     $id: ModelIDKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelUserFilterInput
@@ -115,6 +189,22 @@ export const userByEmail = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        posts {
+          nextToken
+          startedAt
+        }
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        Postikes {
+          nextToken
+          startedAt
+        }
+        translationPostikes {
+          nextToken
+          startedAt
+        }
       }
       nextToken
       startedAt
@@ -130,14 +220,63 @@ export const getPost = /* GraphQL */ `
       description
       createdAt
       updatedAt
+      user {
+        id
+        username
+        email
+        selfIntroduction
+        score
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        posts {
+          nextToken
+          startedAt
+        }
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        Postikes {
+          nextToken
+          startedAt
+        }
+        translationPostikes {
+          nextToken
+          startedAt
+        }
+      }
       _version
       _deleted
       _lastChangedAt
       translationPosts {
+        items {
+          id
+          userId
+          postId
+          content
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
       postLikes {
+        items {
+          id
+          userId
+          postId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
@@ -158,9 +297,29 @@ export const listPosts = /* GraphQL */ `
         description
         createdAt
         updatedAt
+        user {
+          id
+          username
+          email
+          selfIntroduction
+          score
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         _version
         _deleted
         _lastChangedAt
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        postLikes {
+          nextToken
+          startedAt
+        }
       }
       nextToken
       startedAt
@@ -187,9 +346,29 @@ export const searchPosts = /* GraphQL */ `
         description
         createdAt
         updatedAt
+        user {
+          id
+          username
+          email
+          selfIntroduction
+          score
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         _version
         _deleted
         _lastChangedAt
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        postLikes {
+          nextToken
+          startedAt
+        }
       }
       nextToken
       total
@@ -216,9 +395,29 @@ export const syncPosts = /* GraphQL */ `
         description
         createdAt
         updatedAt
+        user {
+          id
+          username
+          email
+          selfIntroduction
+          score
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         _version
         _deleted
         _lastChangedAt
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        postLikes {
+          nextToken
+          startedAt
+        }
       }
       nextToken
       startedAt
@@ -234,10 +433,48 @@ export const getTranslationPost = /* GraphQL */ `
       content
       createdAt
       updatedAt
+      user {
+        id
+        username
+        email
+        selfIntroduction
+        score
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        posts {
+          nextToken
+          startedAt
+        }
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        Postikes {
+          nextToken
+          startedAt
+        }
+        translationPostikes {
+          nextToken
+          startedAt
+        }
+      }
       _version
       _deleted
       _lastChangedAt
       translationPostLikes {
+        items {
+          id
+          userId
+          translationPostId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
@@ -262,9 +499,25 @@ export const listTranslationPosts = /* GraphQL */ `
         content
         createdAt
         updatedAt
+        user {
+          id
+          username
+          email
+          selfIntroduction
+          score
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         _version
         _deleted
         _lastChangedAt
+        translationPostLikes {
+          nextToken
+          startedAt
+        }
       }
       nextToken
       startedAt
@@ -291,9 +544,25 @@ export const syncTranslationPosts = /* GraphQL */ `
         content
         createdAt
         updatedAt
+        user {
+          id
+          username
+          email
+          selfIntroduction
+          score
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
         _version
         _deleted
         _lastChangedAt
+        translationPostLikes {
+          nextToken
+          startedAt
+        }
       }
       nextToken
       startedAt

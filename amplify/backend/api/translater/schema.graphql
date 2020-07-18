@@ -1,13 +1,12 @@
 type User
     @model(
         mutations: { create: "registerUser", update: "updateUser" }
-        subscriptions: null
     )
     @auth(rules: [{ allow: owner, operations: [create, delete, update] }])
     @key(name: "byEmail", fields: ["email", "id"], queryField: "userByEmail") {
     id: ID!
     username: String!
-    email: String!
+    email: AWSEmail!
     selfIntroduction: String
     score: String!
     posts: [Post]! @connection(keyName: "postsByUser", fields: ["id"])
@@ -16,8 +15,8 @@ type User
     Postikes: [PostLike] @connection(keyName: "likePByUser", fields: ["id"])
     translationPostikes: [TranslationPostLike]
         @connection(keyName: "likeTPByUser", fields: ["id"])
-    createdAt: AWSDateTime!
-    updatedAt: AWSDateTime!
+    createdAt: String!
+    updatedAt: String!
 }
 type Post
     @model
@@ -36,8 +35,9 @@ type Post
     description: String!
     translationPosts: [TranslationPost] @connection(keyName: "byPost", fields: ["id"])
     postLikes: [PostLike] @connection(keyName: "likesByPost", fields: ["id"])
-    createdAt: AWSDateTime!
-    updatedAt: AWSDateTime!
+    createdAt: String!
+    updatedAt: String!
+    user: User! @connection(fields: ["userId"])
 }
 type TranslationPost
     @model
@@ -55,8 +55,9 @@ type TranslationPost
     postId: ID!
     content: String!
     translationPostLikes: [TranslationPostLike] @connection(keyName: "likesByTP", fields: ["id"])
-    createdAt: AWSDateTime!
-    updatedAt: AWSDateTime!
+    createdAt: String!
+    updatedAt: String!
+    user: User! @connection(fields: ["userId"])
 }
 type PostLike
     @model
@@ -72,8 +73,8 @@ type PostLike
     id: ID!
     userId: ID!
     postId: ID!
-    createdAt: AWSDateTime!
-    updatedAt: AWSDateTime!
+    createdAt: String!
+    updatedAt: String!
 }
 type TranslationPostLike
     @model
@@ -89,6 +90,6 @@ type TranslationPostLike
     id: ID!
     userId: ID!
     translationPostId: ID!
-    createdAt: AWSDateTime!
-    updatedAt: AWSDateTime!
+    createdAt: String!
+    updatedAt: String!
 }
