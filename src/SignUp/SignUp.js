@@ -27,23 +27,21 @@ export const SignUpForm = () => {
             await Auth.confirmSignUp(email, code);
             await Auth.signIn(email, password)
             await createUser()
-            history.push("/")
-            document.location.reload()
         } catch (error) {
             console.log('error confirming sign up', error);
         }
     }
     const createUser = async () => {
         try {
-            const createdAt = new Date().toLocaleString() //ローカルの時刻
             const input = {
                 username: username,
                 email: email,
                 selfIntroduction: "",
                 score: 0,
-                createdAt
             }
             await API.graphql(graphqlOperation(registerUser, { input }))
+            history.push("/")
+            document.location.reload()
         } catch (err) {
             console.log('error creating user:', err)
         }

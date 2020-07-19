@@ -15,8 +15,8 @@ type User
     Postikes: [PostLike] @connection(keyName: "likePByUser", fields: ["id"])
     translationPostikes: [TranslationPostLike]
         @connection(keyName: "likeTPByUser", fields: ["id"])
-    createdAt: String!
-    updatedAt: String!
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
 }
 type Post
     @model
@@ -28,15 +28,16 @@ type Post
         ]
     )
     @searchable
-    @key(name: "postsByUser", fields: ["userId", "createdAt"]) {
+    @key(name: "postsByUser", fields: ["userId", "createdAt"])
+    @key(name: "myPosts", fields: ["userId", "createdAt"], queryField: "getMyPosts"){
     id: ID!
     userId: ID!
     content: String!
     description: String!
     translationPosts: [TranslationPost] @connection(keyName: "byPost", fields: ["id"])
     postLikes: [PostLike] @connection(keyName: "likesByPost", fields: ["id"])
-    createdAt: String!
-    updatedAt: String!
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
     user: User! @connection(fields: ["userId"])
 }
 type TranslationPost
@@ -55,8 +56,8 @@ type TranslationPost
     postId: ID!
     content: String!
     translationPostLikes: [TranslationPostLike] @connection(keyName: "likesByTP", fields: ["id"])
-    createdAt: String!
-    updatedAt: String!
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
     user: User! @connection(fields: ["userId"])
 }
 type PostLike
@@ -73,8 +74,8 @@ type PostLike
     id: ID!
     userId: ID!
     postId: ID!
-    createdAt: String!
-    updatedAt: String!
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
 }
 type TranslationPostLike
     @model
@@ -86,10 +87,10 @@ type TranslationPostLike
         ]
     )
     @key(name: "likeTPByUser", fields: ["userId", "createdAt"])
-    @key(name: "likesByTP", fields: ["translationPostId", , "createdAt"]) {
+    @key(name: "likesByTP", fields: ["translationPostId", "createdAt"]) {
     id: ID!
     userId: ID!
     translationPostId: ID!
-    createdAt: String!
-    updatedAt: String!
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
 }

@@ -5,7 +5,7 @@ import NavBar from '../NavBar'
 const Header = () => {
     return (
         <>
-            <AppBar position="static" color="default" hei>
+            <AppBar position="static" color="default">
                 <Toolbar variant="dense">
                     <h2>Translater</h2>
                     <NavBar />

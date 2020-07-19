@@ -1,6 +1,6 @@
 {
 	"auth": {
-		"translater412425fb": {
+		"translater32e57b9c": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": []
@@ -24,7 +24,7 @@
 					"defaultAuthentication": {
 						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
 						"userPoolConfig": {
-							"userPoolId": "authtranslater412425fb"
+							"userPoolId": "authtranslater32e57b9c"
 						}
 					}
 				}

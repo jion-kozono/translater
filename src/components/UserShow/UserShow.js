@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { TextField, Button, Box, Typography, makeStyles, Tabs, Tab, AppBar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
+import { TextField, Button, Box, makeStyles, Tabs, Tab, AppBar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import MyTranslationPosts from './MyTranslationPosts/MyTranslationPosts'
 import MyLikedPosts from './MyLikedPosts/MyLikedPosts'
 import MyPosts from './MyPosts/MyPosts'
@@ -22,7 +22,7 @@ function TabPanel(props) {
         >
         {value === index && (
             <Box p={3}>
-            <Typography>{children}</Typography>
+            <div>{children}</div>
             </Box>
         )}
         </div>
@@ -68,12 +68,10 @@ export const UserShow = (props) => {
 
     const setInput = (key, value) => setFormState({ ...formState, [key]: value })
     const updateUserData = async () => {
-        const updatedAt = new Date().toLocaleString() //ローカルの時刻
         const input = {
             id: user.id,
             username: formState.userName,
             selfIntroduction: formState.selfIntroduction,
-            updatedAt,
             _version: user._version
         }
         try {

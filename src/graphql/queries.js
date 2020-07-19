@@ -326,6 +326,59 @@ export const listPosts = /* GraphQL */ `
     }
   }
 `;
+export const getMyPosts = /* GraphQL */ `
+  query GetMyPosts(
+    $userId: ID
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getMyPosts(
+      userId: $userId
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userId
+        content
+        description
+        createdAt
+        updatedAt
+        user {
+          id
+          username
+          email
+          selfIntroduction
+          score
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        translationPosts {
+          nextToken
+          startedAt
+        }
+        postLikes {
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const searchPosts = /* GraphQL */ `
   query SearchPosts(
     $filter: SearchablePostFilterInput

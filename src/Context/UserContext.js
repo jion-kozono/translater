@@ -28,20 +28,21 @@ export const UserProvider = ({ children }) => {
             const email = userData.attributes.email
             const User = await API.graphql(graphqlOperation(userByEmail, { email }))
             const userItems = User.data.userByEmail.items[0]
-            const createdAt = userItems.createdAt.split(' ')[0] //時間切り捨て
+            console.log(userItems)
+            const dt = new Date(userItems.createdAt)
+            const createdAt = dt.toLocaleString().split(' ')[0]
             setUser({
                 id: userItems.id,
                 username: userItems.username,
                 email: userItems.email,
                 selfIntroduction: userItems.selfIntroduction,
-                //日付以下を削除
                 score: userItems.score,
                 createdAt,
                 _version: userItems._version
             })
         } catch (err) {
             // getUserData()
-            console.log('error fetching user')
+            console.log('error fetching user', err)
         }
     }
     return (

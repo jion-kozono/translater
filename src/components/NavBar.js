@@ -45,7 +45,7 @@ const NavBar = () => {
                     <Button variant="contained" color="default" onClick={signOut}>
                         LogOut
                     </Button>
-                    <Button variant="default" color="default" onClick={(e)=>clickLink(e, "userShow")}>
+                    <Button variant="outlined" color="default" onClick={(e)=>clickLink(e, "userShow")}>
                         <AccountCircleIcon />
                         <span style={{ textTransform: "none" }}>Hello, {username}</span>
                     </Button>
