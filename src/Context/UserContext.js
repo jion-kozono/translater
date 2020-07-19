@@ -28,7 +28,6 @@ export const UserProvider = ({ children }) => {
             const email = userData.attributes.email
             const User = await API.graphql(graphqlOperation(userByEmail, { email }))
             const userItems = User.data.userByEmail.items[0]
-            console.log(userItems)
             const dt = new Date(userItems.createdAt)
             const createdAt = dt.toLocaleString().split(' ')[0]
             setUser({

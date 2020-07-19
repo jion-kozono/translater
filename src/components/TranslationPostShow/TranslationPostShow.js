@@ -4,7 +4,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite"
 import IconButton from "@material-ui/core/IconButton"
 import PostShow from '../PostShow/PostShow'
 
-export const TranslationPostShow = () => {
+export const TranslationPostShow = (props) => {
     return (
         <>
             <Card variant="outlined">
