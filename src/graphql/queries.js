@@ -326,59 +326,6 @@ export const listPosts = /* GraphQL */ `
     }
   }
 `;
-export const getMyPosts = /* GraphQL */ `
-  query GetMyPosts(
-    $userId: ID
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelPostFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    getMyPosts(
-      userId: $userId
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        userId
-        content
-        description
-        createdAt
-        updatedAt
-        user {
-          id
-          username
-          email
-          selfIntroduction
-          score
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        translationPosts {
-          nextToken
-          startedAt
-        }
-        postLikes {
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
 export const searchPosts = /* GraphQL */ `
   query SearchPosts(
     $filter: SearchablePostFilterInput
@@ -407,24 +354,24 @@ export const searchPosts = /* GraphQL */ `
           score
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
+          # _version
+          # _deleted
+          # _lastChangedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
-        translationPosts {
-          nextToken
-          startedAt
-        }
-        postLikes {
-          nextToken
-          startedAt
-        }
+      #   _version
+      #   _deleted
+      #   _lastChangedAt
+      #   translationPosts {
+      #     nextToken
+      #     startedAt
+      #   }
+      #   postLikes {
+      #     nextToken
+      #     startedAt
+      #   }
       }
-      nextToken
-      total
+      # nextToken
+      # total
     }
   }
 `;
@@ -574,6 +521,51 @@ export const listTranslationPosts = /* GraphQL */ `
       }
       nextToken
       startedAt
+    }
+  }
+`;
+export const searchTranslationPosts = /* GraphQL */ `
+  query SearchTranslationPosts(
+    $filter: SearchableTranslationPostFilterInput
+    $sort: SearchableTranslationPostSortInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    searchTranslationPosts(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userId
+        postId
+        content
+        createdAt
+        updatedAt
+        user {
+          id
+          username
+          email
+          selfIntroduction
+          score
+          createdAt
+          updatedAt
+          # _version
+          # _deleted
+          # _lastChangedAt
+        }
+        # _version
+        # _deleted
+        # _lastChangedAt
+        # translationPostLikes {
+        #   nextToken
+        #   startedAt
+        # }
+      }
+      # nextToken
+      # total
     }
   }
 `;

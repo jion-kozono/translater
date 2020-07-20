@@ -3,12 +3,36 @@ import { useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreatePost } from '../graphql/subscriptions';
 import { UserContext } from './UserContext';
-import { listPosts } from '../graphql/queries';
+import { searchPosts } from '../graphql/queries';
 
 export const PostContext = createContext()
 export const PostProvider = ({ children }) => {
     const { user } = useContext(UserContext)
-    const [globalPostState, setGlobalPostState] = useState([])
+    const [globalPosts, setGlobalPosts] = useState([])
+    async function fetchPosts() {
+        const queryArgument = Object.assign({}, {
+            sort: { // Defaultはパーティションキー順になってしまうので対策
+                field: 'createdAt',
+                direction: 'desc'
+            },
+        })
+        try {
+            const PostData = await API.graphql(graphqlOperation(searchPosts, queryArgument))
+            const Posts = PostData.data.searchPosts.items
+            let n = 0;
+            while (n < Posts.length) {
+                let cre = Posts[n].createdAt
+                let dt = new Date(cre)
+                const changedCreated = dt.toLocaleString()
+                Posts[n].createdAt = changedCreated
+                n++;
+            }
+            setGlobalPosts(Posts)
+            console.log("fetchPosts")
+        } catch (err) {
+            console.log('error fetching posts', err)
+        }
+    }
     useEffect(() => {
         fetchPosts()
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -19,28 +43,18 @@ export const PostProvider = ({ children }) => {
         })).subscribe({
             next: (eventData) => {
                 const newPost = eventData.value.data.onCreatePost
-                const Posts = [...globalPostState.filter(r => {
-                    return (r.content !== newPost.content)
+                const Posts = [...globalPosts.filter(r => {
+                    return (r.id !== newPost.id)
                 }), newPost]
-                setGlobalPostState([newPost, ...Posts])
+                setGlobalPosts([newPost, ...Posts])
             }
         })
         return () => subscription.unsubscribe()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [globalPostState])
-    async function fetchPosts() {
-        console.log("fetchPosts")
-        try {
-            const PostData = await API.graphql(graphqlOperation(listPosts))
-            const Posts = PostData.data.listPosts.items
-            setGlobalPostState(Posts)
-        } catch (err) {
-            console.log('error fetching posts', err)
-        }
-    }
+    }, [globalPosts])
     return (
         <>
-            <PostContext.Provider value={{ globalPostState, setGlobalPostState }}>
+            <PostContext.Provider value={{ globalPosts, setGlobalPosts }}>
                 {children}
             </PostContext.Provider>
         </>

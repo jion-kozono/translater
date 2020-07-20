@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Card, CardContent, CardActions, CardHeader } from '@material-ui/core'
 import FavoriteIcon from "@material-ui/icons/Favorite"
 import IconButton from "@material-ui/core/IconButton"
-import { useParams } from 'react-router-dom'
 import { API, graphqlOperation } from 'aws-amplify'
 import { getPost } from '../../graphql/queries'
 import ScrollToTopOnMount from '../ScrollToTopOnMount'
+import { TPostContext } from '../../Context/TPostContext'
 
 const PostShow = () => {
-    const { id } = useParams()
     const [post, setPost] = useState([])
+    const { id } = useContext(TPostContext)
 
     useEffect(() => {
         getPostShow()
@@ -20,7 +20,6 @@ const PostShow = () => {
             const PostData = await API.graphql(graphqlOperation(getPost, { id }))
             const Post = PostData.data.getPost
             setPost(Post)
-            console.log(Post.user.username)
         } catch (err) {
             console.log("error getPostShow", err)
         }
@@ -33,13 +32,14 @@ const PostShow = () => {
                     <CardHeader style={{ "padding": "0" }}>hoge</CardHeader>
                     <CardContent>{post.user.username}</CardContent>
                     <CardContent>{post.content}</CardContent>
-                    <CardContent style={{ "border": "solid 0.2px" }}>
+                    <CardContent>
                         description: {post.description}
                     </CardContent>
                     <CardActions>
                         <IconButton aria-label="add to favorites">
                             <FavoriteIcon />
                         </IconButton>
+                        <div>createdAt: {post.createdAt}</div>
                     </CardActions>
                 </Card> : ""}
         </>

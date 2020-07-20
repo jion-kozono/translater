@@ -12,7 +12,7 @@ ReactDOM.render(
   <React.StrictMode>
     <UserProvider>
       <PostProvider>
-        <App />
+          <App />
       </PostProvider>
     </UserProvider>
   </React.StrictMode>,

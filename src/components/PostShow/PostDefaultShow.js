@@ -1,15 +1,16 @@
 import React　from 'react'
-import TranslationPostForm from '../TranslationPostForm/TranslationPostForm'
 import TranslationPosts from '../TranslationPosts/TranslationPosts'
 import PostShow from './PostShow'
+import { TPostProvider } from '../../Context/TPostContext'
 
 export const PostDefaultShow =() => {
     return (
         <>
-            <div>英文詳細画面</div>
-            <PostShow />
-            <TranslationPostForm/>
-            <TranslationPosts/>
+            <TPostProvider>
+                <PostShow />
+                <p>和訳を投稿する</p>
+                <TranslationPosts/>
+            </TPostProvider>
         </>
     )
 }

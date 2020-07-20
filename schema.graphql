@@ -28,8 +28,7 @@ type Post
         ]
     )
     @searchable
-    @key(name: "postsByUser", fields: ["userId", "createdAt"])
-    @key(name: "myPosts", fields: ["userId", "createdAt"], queryField: "getMyPosts"){
+    @key(name: "postsByUser", fields: ["userId", "createdAt"]){
     id: ID!
     userId: ID!
     content: String!
@@ -49,12 +48,14 @@ type TranslationPost
         { allow: public, provider: apiKey, operations: [read] }
         ]
     )
+    @searchable
     @key(name: "byPost", fields: ["postId", "createdAt"])
     @key(name: "translationPostsByUser", fields: ["userId", "createdAt"]) {
     id: ID!
     userId: ID!
     postId: ID!
     content: String!
+    description: String!
     translationPostLikes: [TranslationPostLike] @connection(keyName: "likesByTP", fields: ["id"])
     createdAt: AWSDateTime!
     updatedAt: AWSDateTime!

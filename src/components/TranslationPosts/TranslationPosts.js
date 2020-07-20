@@ -1,37 +1,43 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Card, CardContent, CardActions, CardHeader} from '@material-ui/core'
 import FavoriteIcon from "@material-ui/icons/Favorite"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import IconButton from "@material-ui/core/IconButton"
-import { Link } from 'react-router-dom'
+import { UserContext } from '../../Context/UserContext'
+import TranslationPostForm from './TranslationPostForm'
+import { TPostContext } from '../../Context/TPostContext'
+
 
 const TranslationPosts = () => {
-    const index = [1, 2, 3, 4]
-    const LinkStyle = {
-        textDecoration: "none",
-        color: "#fff"
-    }
+    const { user } = useContext(UserContext)
+    const { globalTPosts } = useContext(TPostContext)
     return (
         <>
-            <div>和訳一覧</div>
-            {index.map((i, index) => {
-                return (
-                    <Link to={"/translationPosts/" + i} style={LinkStyle}>
-                        <Card key={index} variant="outlined">
-                            <CardHeader>日本語訳</CardHeader>
-                                <CardContent>日本語訳. {i}</CardContent>
-                            <CardActions>
-                                <IconButton aria-label="add to favorites">
-                                <FavoriteIcon />
-                                </IconButton>
-                                <IconButton>
-                                <ExpandMoreIcon />
-                                </IconButton>
-                            </CardActions>
-                        </Card>
-                    </Link>
-            )
-            })}
+            {user.username ? <TranslationPostForm /> : <p>和訳を投稿するにはログインが必要です。</p>}
+            {globalTPosts && globalTPosts.map((tPost, index) => (
+                <Card key={index} variant="outlined" style={{"border": "ridge", "margin": "10px"}}>
+                    <CardHeader style={{"padding": "0"}}>{tPost.id}</CardHeader>
+                        <CardContent>
+                            {tPost.user.username}
+                        </CardContent>
+                        <CardContent>
+                            {tPost.content}
+                        </CardContent>
+                        {tPost.description && (
+                        <CardContent>
+                            description: {tPost.description}
+                        </CardContent>
+                        )}
+                    <CardActions>
+                        <IconButton aria-label="add to favorites">
+                        <FavoriteIcon></FavoriteIcon>
+                        </IconButton>
+                        <IconButton>
+                        <ExpandMoreIcon />
+                        </IconButton>
+                    </CardActions>
+                </Card>
+            ))}
         </>
     )
 }
